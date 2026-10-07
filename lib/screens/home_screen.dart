@@ -33,7 +33,7 @@ class HomeScreen extends StatelessWidget {
                   );
                 },
                 child: const Text(
-                  '① 보유 카드 입력',
+                  '보유 카드',
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -59,7 +59,7 @@ class HomeScreen extends StatelessWidget {
                   );
                 },
                 child: const Text(
-                  '② 덱 리스트 비교',
+                  '덱 리스트',
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -85,7 +85,7 @@ class HomeScreen extends StatelessWidget {
                   );
                 },
                 child: const Text(
-                  '③ 부족 카드 목록',
+                  '부족 카드 목록',
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
