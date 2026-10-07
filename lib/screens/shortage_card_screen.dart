@@ -128,7 +128,9 @@ class _ShortageCardScreenState
     return color
         .split(',')
         .map(
-          (value) => _getColor(value.trim()),
+          (value) => _getColor(
+        value.trim(),
+      ),
     )
         .toList();
   }
@@ -156,7 +158,9 @@ class _ShortageCardScreenState
         return Container(
           width: size,
           height: size,
-          margin: const EdgeInsets.only(right: 3),
+          margin: const EdgeInsets.only(
+            right: 3,
+          ),
           decoration: BoxDecoration(
             color: value,
             shape: BoxShape.circle,
@@ -167,11 +171,15 @@ class _ShortageCardScreenState
   }
 
   List<Map<String, dynamic>> get filteredCards {
-    final query = searchText.trim().toLowerCase();
+    final query =
+    searchText.trim().toLowerCase();
 
     return shortageCards.where((card) {
-      final cardType = card['type'].toString();
-      final cardColor = card['color'].toString();
+      final cardType =
+      card['type'].toString();
+
+      final cardColor =
+      card['color'].toString();
 
       String displayType = cardType;
 
@@ -197,18 +205,22 @@ class _ShortageCardScreenState
             return false;
           }
         } else {
-          if (!colors.contains(selectedColor)) {
+          if (!colors.contains(
+            selectedColor,
+          )) {
             return false;
           }
         }
       }
 
       if (query.isNotEmpty) {
-        final name =
-        card['name'].toString().toLowerCase();
+        final name = card['name']
+            .toString()
+            .toLowerCase();
 
-        final number =
-        card['number'].toString().toLowerCase();
+        final number = card['number']
+            .toString()
+            .toLowerCase();
 
         if (!name.contains(query) &&
             !number.contains(query)) {
@@ -245,21 +257,26 @@ class _ShortageCardScreenState
       onSelected: onSelected,
       child: Container(
         height: 44,
-        padding: const EdgeInsets.symmetric(
+        padding:
+        const EdgeInsets.symmetric(
           horizontal: 12,
         ),
         decoration: BoxDecoration(
           color: panelColor,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius:
+          BorderRadius.circular(10),
           border: Border.all(
             color: borderColor,
           ),
         ),
         child: Row(
           children: [
-            if (showColors && value != '전체') ...[
+            if (showColors &&
+                value != '전체') ...[
               _buildAttributeDots(
-                value == '전장' ? '무색' : value,
+                value == '전장'
+                    ? '무색'
+                    : value,
                 size: 11,
               ),
               const SizedBox(width: 7),
@@ -267,16 +284,19 @@ class _ShortageCardScreenState
             Expanded(
               child: Text(
                 value,
-                overflow: TextOverflow.ellipsis,
+                overflow:
+                TextOverflow.ellipsis,
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 13,
-                  fontWeight: FontWeight.w500,
+                  fontWeight:
+                  FontWeight.w500,
                 ),
               ),
             ),
             const Icon(
-              Icons.keyboard_arrow_down_rounded,
+              Icons
+                  .keyboard_arrow_down_rounded,
               color: secondaryTextColor,
               size: 20,
             ),
@@ -289,16 +309,20 @@ class _ShortageCardScreenState
             value: item,
             child: Row(
               children: [
-                if (showColors && item != '전체') ...[
+                if (showColors &&
+                    item != '전체') ...[
                   _buildAttributeDots(
-                    item == '전장' ? '무색' : item,
+                    item == '전장'
+                        ? '무색'
+                        : item,
                     size: 11,
                   ),
                   const SizedBox(width: 8),
                 ],
                 Text(
                   item,
-                  style: const TextStyle(
+                  style:
+                  const TextStyle(
                     color: Colors.white,
                   ),
                 ),
@@ -332,9 +356,7 @@ class _ShortageCardScreenState
             },
           ),
         ),
-
         const SizedBox(width: 8),
-
         Expanded(
           child: _buildDropdown(
             value: selectedColor,
@@ -356,9 +378,7 @@ class _ShortageCardScreenState
             },
           ),
         ),
-
         const SizedBox(width: 8),
-
         _buildResetButton(),
       ],
     );
@@ -380,12 +400,15 @@ class _ShortageCardScreenState
             : null,
         style: IconButton.styleFrom(
           backgroundColor: panelColor,
-          disabledBackgroundColor: panelColor,
+          disabledBackgroundColor:
+          panelColor,
           side: const BorderSide(
             color: borderColor,
           ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+          shape:
+          RoundedRectangleBorder(
+            borderRadius:
+            BorderRadius.circular(10),
           ),
         ),
         icon: Icon(
@@ -420,7 +443,8 @@ class _ShortageCardScreenState
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(
+          padding:
+          const EdgeInsets.fromLTRB(
             16,
             4,
             16,
@@ -428,7 +452,8 @@ class _ShortageCardScreenState
           ),
           child: isLoading
               ? const Center(
-            child: CircularProgressIndicator(
+            child:
+            CircularProgressIndicator(
               color: Colors.white,
             ),
           )
@@ -439,38 +464,43 @@ class _ShortageCardScreenState
             CrossAxisAlignment.start,
             children: [
               _buildHeader(),
-
-              const SizedBox(height: 10),
-
+              const SizedBox(
+                height: 10,
+              ),
               _buildShortageSummary(),
-
-              const SizedBox(height: 10),
-
+              const SizedBox(
+                height: 10,
+              ),
               _buildSearchField(),
-
-              const SizedBox(height: 8),
-
+              const SizedBox(
+                height: 8,
+              ),
               _buildFilters(),
-
-              const SizedBox(height: 9),
-
+              const SizedBox(
+                height: 9,
+              ),
               _buildResultCount(
                 cards.length,
               ),
-
-              const SizedBox(height: 7),
-
+              const SizedBox(
+                height: 7,
+              ),
               Expanded(
                 child: cards.isEmpty
                     ? _buildNoResult()
                     : ListView.builder(
                   padding:
-                  const EdgeInsets.only(
+                  const EdgeInsets
+                      .only(
                     bottom: 8,
                   ),
-                  itemCount: cards.length,
+                  itemCount:
+                  cards.length,
                   itemBuilder:
-                      (context, index) {
+                      (
+                      context,
+                      index,
+                      ) {
                     return _buildCardItem(
                       cards[index],
                     );
@@ -512,15 +542,18 @@ class _ShortageCardScreenState
   Widget _buildShortageSummary() {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(
+      padding:
+      const EdgeInsets.symmetric(
         horizontal: 12,
         vertical: 10,
       ),
       decoration: BoxDecoration(
         color: panelColor,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius:
+        BorderRadius.circular(12),
         border: Border.all(
-          color: Colors.red.withOpacity(0.35),
+          color: Colors.red
+              .withOpacity(0.35),
         ),
       ),
       child: Row(
@@ -529,11 +562,14 @@ class _ShortageCardScreenState
             width: 34,
             height: 34,
             decoration: BoxDecoration(
-              color: Colors.redAccent.withOpacity(0.10),
-              borderRadius: BorderRadius.circular(9),
+              color: Colors.redAccent
+                  .withOpacity(0.10),
+              borderRadius:
+              BorderRadius.circular(9),
             ),
             child: const Icon(
-              Icons.warning_amber_rounded,
+              Icons
+                  .warning_amber_rounded,
               size: 19,
               color: Colors.redAccent,
             ),
@@ -545,7 +581,8 @@ class _ShortageCardScreenState
               style: const TextStyle(
                 color: Colors.redAccent,
                 fontSize: 13,
-                fontWeight: FontWeight.bold,
+                fontWeight:
+                FontWeight.bold,
               ),
             ),
           ),
@@ -559,7 +596,8 @@ class _ShortageCardScreenState
       height: 44,
       decoration: BoxDecoration(
         color: panelColor,
-        borderRadius: BorderRadius.circular(10),
+        borderRadius:
+        BorderRadius.circular(10),
         border: Border.all(
           color: borderColor,
         ),
@@ -583,15 +621,18 @@ class _ShortageCardScreenState
             color: secondaryTextColor,
             size: 20,
           ),
-          hintText: '카드 이름 또는 번호 검색',
+          hintText:
+          '카드 이름 또는 번호 검색',
           hintStyle: const TextStyle(
             color: secondaryTextColor,
             fontSize: 13,
           ),
-          suffixIcon: searchText.isNotEmpty
+          suffixIcon:
+          searchText.isNotEmpty
               ? IconButton(
             onPressed: () {
-              searchController.clear();
+              searchController
+                  .clear();
 
               setState(() {
                 searchText = '';
@@ -599,7 +640,8 @@ class _ShortageCardScreenState
             },
             icon: const Icon(
               Icons.clear,
-              color: secondaryTextColor,
+              color:
+              secondaryTextColor,
               size: 18,
             ),
           )
@@ -651,14 +693,16 @@ class _ShortageCardScreenState
   Widget _buildNoResult() {
     return Center(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment:
+        MainAxisAlignment.center,
         children: [
           Container(
             width: 62,
             height: 62,
             decoration: BoxDecoration(
               color: panelColor,
-              borderRadius: BorderRadius.circular(17),
+              borderRadius:
+              BorderRadius.circular(17),
               border: Border.all(
                 color: borderColor,
               ),
@@ -691,13 +735,17 @@ class _ShortageCardScreenState
             onPressed: resetFilters,
             style: TextButton.styleFrom(
               foregroundColor: Colors.white,
-              backgroundColor: const Color(0xFF292E38),
-              padding: const EdgeInsets.symmetric(
+              backgroundColor:
+              const Color(0xFF292E38),
+              padding:
+              const EdgeInsets.symmetric(
                 horizontal: 14,
                 vertical: 8,
               ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
+              shape:
+              RoundedRectangleBorder(
+                borderRadius:
+                BorderRadius.circular(8),
               ),
             ),
             child: const Text(
@@ -735,26 +783,36 @@ class _ShortageCardScreenState
       card['color'].toString(),
     );
 
-    final type = card['type'].toString();
-    final color = card['color'].toString();
+    final type =
+    card['type'].toString();
 
-    final bool isLegend = type == '전설';
-    final bool isRune = type == '룬';
-    final bool isBattlefield = color == '무색';
+    final color =
+    card['color'].toString();
+
+    final bool isBattlefield =
+        color == '무색';
+
+    // ★ 모든 카드 타입을 이름 옆에 표시
+    // 무색 카드는 실제 DB type과 관계없이 전장으로 표시
+    final String displayType =
+    isBattlefield ? '전장' : type;
 
     return Container(
-      margin: const EdgeInsets.only(
+      margin:
+      const EdgeInsets.only(
         bottom: 7,
       ),
       decoration: BoxDecoration(
         color: panelColor,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius:
+        BorderRadius.circular(12),
         border: Border.all(
           color: borderColor,
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(
+        padding:
+        const EdgeInsets.fromLTRB(
           12,
           9,
           10,
@@ -766,24 +824,30 @@ class _ShortageCardScreenState
               width: 38,
               height: 38,
               decoration: BoxDecoration(
-                color: const Color(0xFF15181E),
-                borderRadius: BorderRadius.circular(9),
+                color:
+                const Color(0xFF15181E),
+                borderRadius:
+                BorderRadius.circular(9),
               ),
               child: Center(
                 child: Row(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisSize:
+                  MainAxisSize.min,
                   children: colors.map(
                         (color) {
                       return Container(
                         width: 7,
                         height: 7,
                         margin:
-                        const EdgeInsets.symmetric(
+                        const EdgeInsets
+                            .symmetric(
                           horizontal: 1,
                         ),
-                        decoration: BoxDecoration(
+                        decoration:
+                        BoxDecoration(
                           color: color,
-                          shape: BoxShape.circle,
+                          shape:
+                          BoxShape.circle,
                         ),
                       );
                     },
@@ -801,54 +865,71 @@ class _ShortageCardScreenState
                     children: [
                       Flexible(
                         child: Text(
-                          card['name'].toString(),
+                          card['name']
+                              .toString(),
                           maxLines: 1,
                           overflow:
-                          TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            color: Colors.white,
+                          TextOverflow
+                              .ellipsis,
+                          style:
+                          const TextStyle(
+                            color:
+                            Colors.white,
                             fontSize: 14,
-                            fontWeight: FontWeight.bold,
+                            fontWeight:
+                            FontWeight.bold,
                           ),
                         ),
                       ),
-                      if (isLegend)
-                        _buildTypeBadge('전설'),
-                      if (isRune)
-                        _buildTypeBadge('룬'),
-                      if (isBattlefield)
-                        _buildTypeBadge('전장'),
+
+                      // ★ 카드 이름 오른쪽 타입 배지
+                      _buildTypeBadge(
+                        displayType,
+                      ),
                     ],
                   ),
                   const SizedBox(height: 4),
                   Row(
                     children: [
                       Text(
-                        card['number'].toString(),
-                        style: const TextStyle(
-                          color: secondaryTextColor,
+                        card['number']
+                            .toString(),
+                        style:
+                        const TextStyle(
+                          color:
+                          secondaryTextColor,
                           fontSize: 11,
                         ),
                       ),
-                      const SizedBox(width: 7),
+                      const SizedBox(
+                        width: 7,
+                      ),
                       Container(
                         width: 3,
                         height: 3,
                         decoration:
                         const BoxDecoration(
-                          color: secondaryTextColor,
-                          shape: BoxShape.circle,
+                          color:
+                          secondaryTextColor,
+                          shape:
+                          BoxShape.circle,
                         ),
                       ),
-                      const SizedBox(width: 7),
+                      const SizedBox(
+                        width: 7,
+                      ),
                       Flexible(
                         child: Text(
-                          card['series'].toString(),
+                          card['series']
+                              .toString(),
                           maxLines: 1,
                           overflow:
-                          TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            color: secondaryTextColor,
+                          TextOverflow
+                              .ellipsis,
+                          style:
+                          const TextStyle(
+                            color:
+                            secondaryTextColor,
                             fontSize: 11,
                           ),
                         ),
@@ -860,16 +941,22 @@ class _ShortageCardScreenState
                     children: [
                       Text(
                         '필요 $requiredCount장',
-                        style: const TextStyle(
-                          color: secondaryTextColor,
+                        style:
+                        const TextStyle(
+                          color:
+                          secondaryTextColor,
                           fontSize: 11,
                         ),
                       ),
-                      const SizedBox(width: 8),
+                      const SizedBox(
+                        width: 8,
+                      ),
                       Text(
                         '보유 $ownedCount장',
-                        style: const TextStyle(
-                          color: secondaryTextColor,
+                        style:
+                        const TextStyle(
+                          color:
+                          secondaryTextColor,
                           fontSize: 11,
                         ),
                       ),
@@ -890,33 +977,34 @@ class _ShortageCardScreenState
                 vertical: 7,
               ),
               decoration: BoxDecoration(
-                color:
-                Colors.redAccent.withOpacity(
-                  0.08,
-                ),
+                color: Colors.redAccent
+                    .withOpacity(0.08),
                 borderRadius:
                 BorderRadius.circular(8),
                 border: Border.all(
-                  color: Colors.red.withOpacity(
-                    0.25,
-                  ),
+                  color: Colors.red
+                      .withOpacity(0.25),
                 ),
               ),
               child: Column(
                 children: [
                   Text(
                     '$shortageCount장',
-                    style: const TextStyle(
-                      color: Colors.redAccent,
+                    style:
+                    const TextStyle(
+                      color:
+                      Colors.redAccent,
                       fontSize: 14,
-                      fontWeight: FontWeight.bold,
+                      fontWeight:
+                      FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 1),
                   const Text(
                     '부족',
                     style: TextStyle(
-                      color: secondaryTextColor,
+                      color:
+                      secondaryTextColor,
                       fontSize: 9,
                     ),
                   ),
@@ -929,18 +1017,27 @@ class _ShortageCardScreenState
     );
   }
 
-  Widget _buildTypeBadge(String text) {
+  // ============================================================
+  // 카드 타입 배지
+  // ============================================================
+
+  Widget _buildTypeBadge(
+      String text,
+      ) {
     return Container(
-      margin: const EdgeInsets.only(
+      margin:
+      const EdgeInsets.only(
         left: 7,
       ),
-      padding: const EdgeInsets.symmetric(
+      padding:
+      const EdgeInsets.symmetric(
         horizontal: 6,
         vertical: 2,
       ),
       decoration: BoxDecoration(
         color: const Color(0xFF292E38),
-        borderRadius: BorderRadius.circular(5),
+        borderRadius:
+        BorderRadius.circular(5),
       ),
       child: Text(
         text,
@@ -971,15 +1068,19 @@ class _ShortageCardScreenState
                   decoration: BoxDecoration(
                     color: panelColor,
                     borderRadius:
-                    BorderRadius.circular(20),
+                    BorderRadius.circular(
+                      20,
+                    ),
                     border: Border.all(
                       color: borderColor,
                     ),
                   ),
                   child: const Icon(
-                    Icons.check_circle_outline,
+                    Icons
+                        .check_circle_outline,
                     size: 34,
-                    color: Colors.greenAccent,
+                    color:
+                    Colors.greenAccent,
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -988,7 +1089,8 @@ class _ShortageCardScreenState
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 16,
-                    fontWeight: FontWeight.bold,
+                    fontWeight:
+                    FontWeight.bold,
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -999,9 +1101,11 @@ class _ShortageCardScreenState
                   ),
                   child: Text(
                     '현재 저장된 덱을 만들기에 충분한 카드를 보유하고 있습니다.',
-                    textAlign: TextAlign.center,
+                    textAlign:
+                    TextAlign.center,
                     style: TextStyle(
-                      color: secondaryTextColor,
+                      color:
+                      secondaryTextColor,
                       fontSize: 13,
                       height: 1.4,
                     ),

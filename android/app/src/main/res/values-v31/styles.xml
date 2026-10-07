@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Android 12(API 31) 이상에서 사용하는 시작 화면 -->
+    <style name="LaunchTheme" parent="@android:style/Theme.Light.NoTitleBar">
+        <!-- 시작 화면 배경 -->
+        <item name="android:windowSplashScreenBackground">#111318</item>
+
+        <!-- Android 시스템이 표시하는 아이콘을 투명 아이콘으로 변경 -->
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/transparent_splash_icon</item>
+
+        <!-- 시작 화면의 아이콘 배경 제거 -->
+        <item name="android:windowSplashScreenIconBackgroundColor">@android:color/transparent</item>
+
+        <!-- 기존 launch background도 유지 -->
+        <item name="android:windowBackground">@drawable/launch_background</item>
+    </style>
+
+    <style name="NormalTheme" parent="@android:style/Theme.Light.NoTitleBar">
+        <item name="android:windowBackground">#111318</item>
+    </style>
+
+</resources>

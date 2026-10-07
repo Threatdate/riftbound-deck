@@ -569,7 +569,7 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
                 );
               },
               style: FilledButton.styleFrom(
-                backgroundColor: Colors.red.shade700,
+                backgroundColor: Colors.red,
               ),
               child: const Text('삭제'),
             ),
@@ -1587,9 +1587,7 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
       CrossAxisAlignment.start,
       children: [
         _buildDeckHeader(),
-
         const SizedBox(height: 12),
-
         Expanded(
           child: Center(
             child: Column(
@@ -1612,12 +1610,11 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
                   child: const Icon(
                     Icons.style_outlined,
                     size: 34,
-                    color: secondaryTextColor,
+                    color:
+                    secondaryTextColor,
                   ),
                 ),
-
                 const SizedBox(height: 16),
-
                 const Text(
                   '이 덱에는 카드가 없습니다.',
                   style: TextStyle(
@@ -1627,13 +1624,12 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
                     FontWeight.bold,
                   ),
                 ),
-
                 const SizedBox(height: 8),
-
                 const Text(
                   '카드를 추가해서 덱을 구성해보세요.',
                   style: TextStyle(
-                    color: secondaryTextColor,
+                    color:
+                    secondaryTextColor,
                     fontSize: 13,
                   ),
                 ),
@@ -1641,7 +1637,6 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
             ),
           ),
         ),
-
         _buildAddCardButton(),
       ],
     );
@@ -1662,9 +1657,7 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
       CrossAxisAlignment.start,
       children: [
         _buildDeckHeader(),
-
         const SizedBox(height: 4),
-
         Row(
           children: [
             Text(
@@ -1680,7 +1673,8 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
               height: 3,
               decoration:
               const BoxDecoration(
-                color: secondaryTextColor,
+                color:
+                secondaryTextColor,
                 shape: BoxShape.circle,
               ),
             ),
@@ -1694,31 +1688,20 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
             ),
           ],
         ),
-
         const SizedBox(height: 8),
-
-        // 기존 구성 현황 디자인 유지 + 세로 여백만 압축
         _buildDeckStatus(),
-
         const SizedBox(height: 7),
-
-        // 카드 추가 버튼도 조금 얇게
         _buildAddCardButtonCompact(),
-
         const SizedBox(height: 7),
-
-        // 부족 안내를 작은 한 줄로 표시
         _buildShortageCompact(
           shortageCount,
         ),
-
         const SizedBox(height: 7),
-
-        // 필터 버튼도 기존 디자인 유지하면서 높이 축소
         Row(
           children: [
             Expanded(
-              child: _buildFilterButtonCompact(
+              child:
+              _buildFilterButtonCompact(
                 title: '전체 카드',
                 selected:
                 !showShortageOnly,
@@ -1732,7 +1715,8 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
             ),
             const SizedBox(width: 6),
             Expanded(
-              child: _buildFilterButtonCompact(
+              child:
+              _buildFilterButtonCompact(
                 title:
                 '부족 카드 $shortageCount장',
                 selected:
@@ -1747,11 +1731,7 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
             ),
           ],
         ),
-
         const SizedBox(height: 7),
-
-        // 이 영역이 남은 공간을 모두 사용하므로
-        // 카드가 여러 장 보이면서 아래로 스크롤 가능
         Expanded(
           child: filteredCards.isEmpty
               ? _buildNoShortage()
@@ -1773,9 +1753,7 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
             },
           ),
         ),
-
         const SizedBox(height: 7),
-
         _buildSaveButtonCompact(),
       ],
     );
@@ -1801,7 +1779,8 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
                       maxLines: 1,
                       overflow:
                       TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style:
+                      const TextStyle(
                         color: Colors.white,
                         fontSize: 22,
                         fontWeight:
@@ -1813,7 +1792,8 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
                   IconButton(
                     onPressed:
                     editDeckName,
-                    padding: EdgeInsets.zero,
+                    padding:
+                    EdgeInsets.zero,
                     constraints:
                     const BoxConstraints(
                       minWidth: 36,
@@ -1833,7 +1813,8 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
               const Text(
                 '덱 구성 및 카드 수량을 관리하세요.',
                 style: TextStyle(
-                  color: secondaryTextColor,
+                  color:
+                  secondaryTextColor,
                   fontSize: 12,
                 ),
               ),
@@ -1866,9 +1847,11 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
             children: [
               Expanded(
                 child: _buildCountItem(
-                  icon: Icons.layers_outlined,
+                  icon:
+                  Icons.layers_outlined,
                   title: '메인 덱',
-                  current: mainDeckCount,
+                  current:
+                  mainDeckCount,
                   max: 40,
                   accent:
                   Colors.blueAccent,
@@ -1877,24 +1860,24 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
               const SizedBox(width: 7),
               Expanded(
                 child: _buildCountItem(
-                  icon:
-                  Icons.workspace_premium_outlined,
+                  icon: Icons
+                      .workspace_premium_outlined,
                   title: '전설',
-                  current: legendCount,
+                  current:
+                  legendCount,
                   max: 1,
                   accent: Colors.amber,
                 ),
               ),
             ],
           ),
-
           const SizedBox(height: 7),
-
           Row(
             children: [
               Expanded(
                 child: _buildCountItem(
-                  icon: Icons.auto_awesome_outlined,
+                  icon: Icons
+                      .auto_awesome_outlined,
                   title: '룬',
                   current: runeCount,
                   max: 12,
@@ -1904,8 +1887,8 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
               const SizedBox(width: 7),
               Expanded(
                 child: _buildCountItem(
-                  icon:
-                  Icons.landscape_outlined,
+                  icon: Icons
+                      .landscape_outlined,
                   title: '전장',
                   current:
                   battlefieldCount,
@@ -1915,7 +1898,6 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
               ),
             ],
           ),
-
           if (selectedLegend != null) ...[
             const SizedBox(height: 7),
             Container(
@@ -1966,8 +1948,7 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
                                   .only(
                                 right: 8,
                               ),
-                              child:
-                              Row(
+                              child: Row(
                                 children: [
                                   Container(
                                     width: 7,
@@ -1979,7 +1960,8 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
                                         colorName,
                                       ),
                                       shape:
-                                      BoxShape.circle,
+                                      BoxShape
+                                          .circle,
                                     ),
                                   ),
                                   const SizedBox(
@@ -1990,9 +1972,9 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
                                     style:
                                     const TextStyle(
                                       color:
-                                      Colors.white,
-                                      fontSize:
-                                      11,
+                                      Colors
+                                          .white,
+                                      fontSize: 11,
                                     ),
                                   ),
                                 ],
@@ -2021,7 +2003,8 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
     (current / max).clamp(0.0, 1.0);
 
     return Container(
-      padding: const EdgeInsets.symmetric(
+      padding:
+      const EdgeInsets.symmetric(
         horizontal: 9,
         vertical: 8,
       ),
@@ -2048,7 +2031,8 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
               Text(
                 title,
                 style: const TextStyle(
-                  color: secondaryTextColor,
+                  color:
+                  secondaryTextColor,
                   fontSize: 11,
                 ),
               ),
@@ -2068,7 +2052,8 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
           ClipRRect(
             borderRadius:
             BorderRadius.circular(4),
-            child: LinearProgressIndicator(
+            child:
+            LinearProgressIndicator(
               value: progress,
               minHeight: 3,
               backgroundColor:
@@ -2112,7 +2097,8 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
             color: borderColor,
           ),
           backgroundColor: panelColor,
-          shape: RoundedRectangleBorder(
+          shape:
+          RoundedRectangleBorder(
             borderRadius:
             BorderRadius.circular(10),
           ),
@@ -2122,7 +2108,6 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
     );
   }
 
-  // 기존 함수도 유지
   Widget _buildAddCardButton() {
     return SizedBox(
       width: double.infinity,
@@ -2146,7 +2131,8 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
             color: borderColor,
           ),
           backgroundColor: panelColor,
-          shape: RoundedRectangleBorder(
+          shape:
+          RoundedRectangleBorder(
             borderRadius:
             BorderRadius.circular(12),
           ),
@@ -2182,7 +2168,9 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
         BorderRadius.circular(8),
         border: Border.all(
           color: hasShortage
-              ? Colors.red.withOpacity(0.28)
+              ? Colors.red.withOpacity(
+            0.28,
+          )
               : Colors.green.withOpacity(
             0.25,
           ),
@@ -2242,7 +2230,9 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
         BorderRadius.circular(12),
         border: Border.all(
           color: hasShortage
-              ? Colors.red.withOpacity(0.35)
+              ? Colors.red.withOpacity(
+            0.35,
+          )
               : Colors.green.withOpacity(
             0.30,
           ),
@@ -2302,7 +2292,8 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
       height: 32,
       child: OutlinedButton(
         onPressed: onPressed,
-        style: OutlinedButton.styleFrom(
+        style:
+        OutlinedButton.styleFrom(
           backgroundColor: selected
               ? const Color(0xFF292E38)
               : panelColor,
@@ -2312,7 +2303,8 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
                 ? Colors.white24
                 : borderColor,
           ),
-          shape: RoundedRectangleBorder(
+          shape:
+          RoundedRectangleBorder(
             borderRadius:
             BorderRadius.circular(8),
           ),
@@ -2353,7 +2345,8 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
       height: 42,
       child: OutlinedButton(
         onPressed: onPressed,
-        style: OutlinedButton.styleFrom(
+        style:
+        OutlinedButton.styleFrom(
           backgroundColor: selected
               ? const Color(0xFF292E38)
               : panelColor,
@@ -2363,7 +2356,8 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
                 ? Colors.white24
                 : borderColor,
           ),
-          shape: RoundedRectangleBorder(
+          shape:
+          RoundedRectangleBorder(
             borderRadius:
             BorderRadius.circular(10),
           ),
@@ -2424,14 +2418,13 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
     final colors =
     _getColors(cardColor);
 
-    final isLegend =
-        type == '전설';
-
-    final isRune =
-        type == '룬';
-
+    // 무색 카드는 UI에서 전장으로 표시
     final isBattlefield =
         cardColor == '무색';
+
+    // 모든 카드 타입을 표시
+    final String displayType =
+    isBattlefield ? '전장' : type;
 
     final canIncrease =
     canIncreaseCard(card);
@@ -2497,9 +2490,7 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
                 ),
               ),
             ),
-
             const SizedBox(width: 9),
-
             Expanded(
               child: Column(
                 crossAxisAlignment:
@@ -2526,25 +2517,13 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
                         ),
                       ),
 
-                      if (isLegend)
-                        _buildTypeBadge(
-                          '전설',
-                        ),
-
-                      if (isRune)
-                        _buildTypeBadge(
-                          '룬',
-                        ),
-
-                      if (isBattlefield)
-                        _buildTypeBadge(
-                          '전장',
-                        ),
+                      // 모든 카드 타입 표시
+                      _buildTypeBadge(
+                        displayType,
+                      ),
                     ],
                   ),
-
                   const SizedBox(height: 2),
-
                   Row(
                     children: [
                       Text(
@@ -2586,9 +2565,7 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
                       ),
                     ],
                   ),
-
                   const SizedBox(height: 2),
-
                   Row(
                     children: [
                       Text(
@@ -2633,9 +2610,7 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
                 ],
               ),
             ),
-
             const SizedBox(width: 3),
-
             Container(
               height: 34,
               decoration: BoxDecoration(
@@ -2666,7 +2641,6 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
                     }
                         : null,
                   ),
-
                   SizedBox(
                     width: 26,
                     child: Center(
@@ -2683,7 +2657,6 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
                       ),
                     ),
                   ),
-
                   _buildQuantityButton(
                     icon: Icons.add,
                     enabled:
@@ -2707,6 +2680,10 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
       ),
     );
   }
+
+  // ============================================================
+  // 카드 타입 배지
+  // ============================================================
 
   Widget _buildTypeBadge(
       String text,
@@ -2813,7 +2790,8 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
         isSaving
             ? null
             : saveDeckChanges,
-        style: FilledButton.styleFrom(
+        style:
+        FilledButton.styleFrom(
           backgroundColor:
           const Color(0xFFE8EAF0),
           foregroundColor:
@@ -2864,7 +2842,8 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
         isSaving
             ? null
             : saveDeckChanges,
-        style: FilledButton.styleFrom(
+        style:
+        FilledButton.styleFrom(
           backgroundColor:
           const Color(0xFFE8EAF0),
           foregroundColor:
@@ -2957,7 +2936,8 @@ class _DeckNameDialogState
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: panelColor,
-      shape: RoundedRectangleBorder(
+      shape:
+      RoundedRectangleBorder(
         borderRadius:
         BorderRadius.circular(16),
         side: const BorderSide(
@@ -2977,10 +2957,13 @@ class _DeckNameDialogState
         style: const TextStyle(
           color: Colors.white,
         ),
-        decoration: InputDecoration(
+        decoration:
+        InputDecoration(
           hintText: '덱 이름을 입력하세요',
-          hintStyle: const TextStyle(
-            color: secondaryTextColor,
+          hintStyle:
+          const TextStyle(
+            color:
+            secondaryTextColor,
           ),
           filled: true,
           fillColor:
@@ -2988,7 +2971,9 @@ class _DeckNameDialogState
           enabledBorder:
           OutlineInputBorder(
             borderRadius:
-            BorderRadius.circular(10),
+            BorderRadius.circular(
+              10,
+            ),
             borderSide:
             const BorderSide(
               color: borderColor,
@@ -2997,7 +2982,9 @@ class _DeckNameDialogState
           focusedBorder:
           OutlineInputBorder(
             borderRadius:
-            BorderRadius.circular(10),
+            BorderRadius.circular(
+              10,
+            ),
             borderSide:
             const BorderSide(
               color: Colors.white24,
@@ -3013,7 +3000,8 @@ class _DeckNameDialogState
           child: const Text(
             '취소',
             style: TextStyle(
-              color: secondaryTextColor,
+              color:
+              secondaryTextColor,
             ),
           ),
         ),
@@ -3031,7 +3019,8 @@ class _DeckNameDialogState
               name,
             );
           },
-          style: FilledButton.styleFrom(
+          style:
+          FilledButton.styleFrom(
             backgroundColor:
             const Color(0xFFE8EAF0),
             foregroundColor:
