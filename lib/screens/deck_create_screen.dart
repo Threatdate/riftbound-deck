@@ -902,6 +902,39 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
     }
   }
 
+  // DeckDetailScreen과 동일한 카운터 UI
+  Widget _buildDeckCount({
+    required String title,
+    required int current,
+    required int max,
+  }) {
+    final isComplete = current == max;
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          title,
+          style: const TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          '$current / $max',
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+            color: isComplete
+                ? Colors.green
+                : Colors.black,
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -1052,6 +1085,78 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
             ),
           ),
 
+          // =====================================================
+          // 메인 덱 / 전설 / 룬 / 전장 UI
+          // DeckDetailScreen과 동일한 UI
+          // =====================================================
+
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Colors.grey.shade50,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: Colors.grey.shade300,
+              ),
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: _buildDeckCount(
+                    title: '메인 덱',
+                    current: totalDeckCount,
+                    max: 40,
+                  ),
+                ),
+
+                Container(
+                  width: 1,
+                  height: 40,
+                  color: Colors.grey.shade300,
+                ),
+
+                Expanded(
+                  child: _buildDeckCount(
+                    title: '전설',
+                    current: totalLegendCount,
+                    max: 1,
+                  ),
+                ),
+
+                Container(
+                  width: 1,
+                  height: 40,
+                  color: Colors.grey.shade300,
+                ),
+
+                Expanded(
+                  child: _buildDeckCount(
+                    title: '룬',
+                    current: totalRuneCount,
+                    max: 12,
+                  ),
+                ),
+
+                Container(
+                  width: 1,
+                  height: 40,
+                  color: Colors.grey.shade300,
+                ),
+
+                Expanded(
+                  child: _buildDeckCount(
+                    title: '전장',
+                    current: totalBattlefieldCount,
+                    max: 3,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          // =====================================================
+
           Container(
             width: double.infinity,
             padding: const EdgeInsets.symmetric(
@@ -1061,52 +1166,6 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
             color: Colors.grey.shade100,
             child: Column(
               children: [
-                Row(
-                  mainAxisAlignment:
-                  MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      '메인 덱: $totalDeckCount / 40',
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      '전설: $totalLegendCount / 1',
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-
-                const SizedBox(height: 4),
-
-                Row(
-                  mainAxisAlignment:
-                  MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      '룬: $totalRuneCount / 12',
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      '전장: $totalBattlefieldCount / 3',
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-
-                const SizedBox(height: 8),
-
                 if (selectedLegend != null)
                   Align(
                     alignment: Alignment.centerLeft,
@@ -1119,7 +1178,8 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
                     ),
                   ),
 
-                const SizedBox(height: 8),
+                if (selectedLegend != null)
+                  const SizedBox(height: 8),
 
                 Row(
                   mainAxisAlignment:
