@@ -11,7 +11,6 @@ class CardScreen extends StatefulWidget {
 class _CardScreenState extends State<CardScreen> {
   final DatabaseHelper dbHelper = DatabaseHelper.instance;
 
-  // DB에서 불러온 카드 목록
   List<Map<String, dynamic>> cards = [];
 
   String selectedSeries = '전체';
@@ -21,10 +20,32 @@ class _CardScreenState extends State<CardScreen> {
 
   bool isLoading = true;
 
+  final TextEditingController searchController =
+  TextEditingController();
+
+  // ============================================================
+  // 색상
+  // ============================================================
+
+  static const Color backgroundColor = Color(0xFF111318);
+  static const Color panelColor = Color(0xFF1B1F27);
+  static const Color borderColor = Color(0xFF292E38);
+  static const Color secondaryTextColor = Color(0xFF9298A5);
+
+  // ============================================================
+  // 초기화
+  // ============================================================
+
   @override
   void initState() {
     super.initState();
     loadCards();
+  }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
   }
 
   // ============================================================
@@ -115,6 +136,20 @@ class _CardScreenState extends State<CardScreen> {
   }
 
   // ============================================================
+  // 필터 초기화
+  // ============================================================
+
+  void resetFilters() {
+    setState(() {
+      selectedSeries = '전체';
+      selectedType = '전체';
+      selectedColor = '전체';
+      searchText = '';
+      searchController.clear();
+    });
+  }
+
+  // ============================================================
   // 검색 + 필터
   // ============================================================
 
@@ -198,6 +233,43 @@ class _CardScreenState extends State<CardScreen> {
   }
 
   // ============================================================
+  // 속성 점
+  // ============================================================
+
+  Widget _buildAttributeDots(
+      String color, {
+        double size = 10,
+      }) {
+    if (color == '무색') {
+      return Container(
+        width: size,
+        height: size,
+        decoration: const BoxDecoration(
+          color: Colors.grey,
+          shape: BoxShape.circle,
+        ),
+      );
+    }
+
+    final colors = _getColors(color);
+
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: colors.map((value) {
+        return Container(
+          width: size,
+          height: size,
+          margin: const EdgeInsets.only(right: 3),
+          decoration: BoxDecoration(
+            color: value,
+            shape: BoxShape.circle,
+          ),
+        );
+      }).toList(),
+    );
+  }
+
+  // ============================================================
   // 드롭다운
   // ============================================================
 
@@ -208,130 +280,470 @@ class _CardScreenState extends State<CardScreen> {
     bool showColors = false,
   }) {
     return PopupMenuButton<String>(
-      offset: const Offset(0, 55),
+      offset: const Offset(0, 52),
+      color: panelColor,
       constraints: const BoxConstraints(
-        minWidth: 120,
-        maxWidth: 180,
+        minWidth: 130,
+        maxWidth: 190,
       ),
       onSelected: onSelected,
       child: Container(
-        width: double.infinity,
+        height: 44,
         padding: const EdgeInsets.symmetric(
           horizontal: 12,
-          vertical: 10,
         ),
         decoration: BoxDecoration(
+          color: panelColor,
+          borderRadius: BorderRadius.circular(10),
           border: Border.all(
-            color: Colors.grey.shade400,
+            color: borderColor,
           ),
-          borderRadius: BorderRadius.circular(8),
         ),
         child: Row(
-          mainAxisAlignment:
-          MainAxisAlignment.spaceBetween,
           children: [
-            Flexible(
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  if (showColors && value != '전체') ...[
-                    if (value == '전장')
-                      Container(
-                        width: 16,
-                        height: 16,
-                        decoration: const BoxDecoration(
-                          color: Colors.grey,
-                          shape: BoxShape.circle,
-                        ),
-                      )
-                    else
-                      ..._getColors(value).map(
-                            (color) => Padding(
-                          padding:
-                          const EdgeInsets.only(
-                            right: 3,
-                          ),
-                          child: Container(
-                            width: 16,
-                            height: 16,
-                            decoration: BoxDecoration(
-                              color: color,
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                        ),
-                      ),
-                    const SizedBox(width: 5),
-                  ],
-                  Flexible(
-                    child: Text(
-                      value,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ],
+            if (showColors && value != '전체') ...[
+              _buildAttributeDots(
+                value == '전장' ? '무색' : value,
+                size: 11,
+              ),
+              const SizedBox(width: 7),
+            ],
+            Expanded(
+              child: Text(
+                value,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
-            const Icon(Icons.arrow_drop_down),
+            const Icon(
+              Icons.keyboard_arrow_down_rounded,
+              color: secondaryTextColor,
+              size: 20,
+            ),
           ],
         ),
       ),
       itemBuilder: (context) {
         return items.map((item) {
-          if (showColors && item != '전체') {
-            if (item == '전장') {
-              return PopupMenuItem<String>(
-                value: item,
-                child: Row(
-                  children: [
-                    Container(
-                      width: 16,
-                      height: 16,
-                      decoration: const BoxDecoration(
-                        color: Colors.grey,
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Text(item),
-                  ],
-                ),
-              );
-            }
-
-            final colors = _getColors(item);
-
-            return PopupMenuItem<String>(
-              value: item,
-              child: Row(
-                children: [
-                  ...colors.map(
-                        (color) => Padding(
-                      padding:
-                      const EdgeInsets.only(right: 3),
-                      child: Container(
-                        width: 16,
-                        height: 16,
-                        decoration: BoxDecoration(
-                          color: color,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 5),
-                  Text(item),
-                ],
-              ),
-            );
-          }
-
           return PopupMenuItem<String>(
             value: item,
-            child: Text(item),
+            child: Row(
+              children: [
+                if (showColors && item != '전체') ...[
+                  _buildAttributeDots(
+                    item == '전장' ? '무색' : item,
+                    size: 11,
+                  ),
+                  const SizedBox(width: 8),
+                ],
+                Text(
+                  item,
+                  style: const TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
           );
         }).toList();
       },
+    );
+  }
+
+  // ============================================================
+  // 필터 초기화 버튼
+  // ============================================================
+
+  Widget _buildResetButton() {
+    final bool isFiltered =
+        selectedSeries != '전체' ||
+            selectedType != '전체' ||
+            selectedColor != '전체' ||
+            searchText.isNotEmpty;
+
+    return SizedBox(
+      height: 44,
+      width: 44,
+      child: IconButton(
+        tooltip: '필터 초기화',
+        onPressed: isFiltered ? resetFilters : null,
+        style: IconButton.styleFrom(
+          backgroundColor: panelColor,
+          disabledBackgroundColor: panelColor,
+          side: const BorderSide(
+            color: borderColor,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+        icon: Icon(
+          Icons.refresh,
+          size: 19,
+          color: isFiltered
+              ? Colors.white
+              : secondaryTextColor,
+        ),
+      ),
+    );
+  }
+
+  // ============================================================
+  // 검색창
+  // ============================================================
+
+  Widget _buildSearchField() {
+    return TextField(
+      controller: searchController,
+      style: const TextStyle(
+        color: Colors.white,
+        fontSize: 14,
+      ),
+      cursorColor: Colors.white,
+      decoration: InputDecoration(
+        hintText: '카드 이름 또는 번호 검색',
+        hintStyle: const TextStyle(
+          color: secondaryTextColor,
+          fontSize: 14,
+        ),
+        prefixIcon: const Icon(
+          Icons.search,
+          color: secondaryTextColor,
+          size: 21,
+        ),
+        suffixIcon: searchText.isNotEmpty
+            ? IconButton(
+          icon: const Icon(
+            Icons.clear,
+            color: secondaryTextColor,
+            size: 19,
+          ),
+          onPressed: () {
+            searchController.clear();
+
+            setState(() {
+              searchText = '';
+            });
+          },
+        )
+            : null,
+        filled: true,
+        fillColor: panelColor,
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 14,
+          vertical: 13,
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: const BorderSide(
+            color: borderColor,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: const BorderSide(
+            color: borderColor,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: const BorderSide(
+            color: Colors.white24,
+          ),
+        ),
+      ),
+      onChanged: (value) {
+        setState(() {
+          searchText = value;
+        });
+      },
+    );
+  }
+
+  // ============================================================
+  // 필터
+  // ============================================================
+
+  Widget _buildFilters() {
+    return Row(
+      children: [
+        Expanded(
+          child: _buildDropdown(
+            value: selectedSeries,
+            items: const [
+              '전체',
+              '오리진',
+            ],
+            onSelected: (value) {
+              setState(() {
+                selectedSeries = value;
+              });
+            },
+          ),
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: _buildDropdown(
+            value: selectedType,
+            items: const [
+              '전체',
+              '전설',
+              '유닛',
+              '주문',
+              '도구',
+              '룬',
+              '전장',
+            ],
+            onSelected: (value) {
+              setState(() {
+                selectedType = value;
+              });
+            },
+          ),
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: _buildDropdown(
+            value: selectedColor,
+            items: const [
+              '전체',
+              '분노',
+              '평정',
+              '정신',
+              '신체',
+              '혼돈',
+              '질서',
+              '전장',
+            ],
+            showColors: true,
+            onSelected: (value) {
+              setState(() {
+                selectedColor = value;
+              });
+            },
+          ),
+        ),
+        const SizedBox(width: 8),
+        _buildResetButton(),
+      ],
+    );
+  }
+
+  // ============================================================
+  // 카드 한 장
+  // ============================================================
+
+  Widget _buildCardItem(
+      Map<String, dynamic> card,
+      ) {
+    final int count = card['count'] as int;
+
+    final String name = card['name'].toString();
+    final String number = card['number'].toString();
+    final String series = card['series'].toString();
+    final String type = card['type'].toString();
+    final String cardColor = card['color'].toString();
+
+    final bool isBattlefield = cardColor == '무색';
+
+    final String displayType =
+    isBattlefield ? '전장' : type;
+
+    return Container(
+      margin: const EdgeInsets.only(
+        bottom: 7,
+      ),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 12,
+        vertical: 9,
+      ),
+      decoration: BoxDecoration(
+        color: panelColor,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: borderColor,
+        ),
+      ),
+      child: Row(
+        children: [
+          // ==================================================
+          // 속성
+          // ==================================================
+
+          SizedBox(
+            width: 28,
+            child: Center(
+              child: _buildAttributeDots(
+                cardColor,
+                size: 10,
+              ),
+            ),
+          ),
+
+          const SizedBox(width: 8),
+
+          // ==================================================
+          // 카드 정보
+          // ==================================================
+
+          Expanded(
+            child: Column(
+              crossAxisAlignment:
+              CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Flexible(
+                      child: Text(
+                        name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 7),
+                    Container(
+                      padding:
+                      const EdgeInsets.symmetric(
+                        horizontal: 6,
+                        vertical: 2,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(
+                          0.06,
+                        ),
+                        borderRadius:
+                        BorderRadius.circular(5),
+                      ),
+                      child: Text(
+                        displayType,
+                        style: const TextStyle(
+                          color: secondaryTextColor,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 3),
+
+                Row(
+                  children: [
+                    Text(
+                      number,
+                      style: const TextStyle(
+                        color: secondaryTextColor,
+                        fontSize: 11,
+                      ),
+                    ),
+                    const SizedBox(width: 7),
+                    Container(
+                      width: 3,
+                      height: 3,
+                      decoration: const BoxDecoration(
+                        color: secondaryTextColor,
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                    const SizedBox(width: 7),
+                    Text(
+                      series,
+                      style: const TextStyle(
+                        color: secondaryTextColor,
+                        fontSize: 11,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(width: 8),
+
+          // ==================================================
+          // 수량 조절
+          // ==================================================
+
+          Container(
+            height: 38,
+            decoration: BoxDecoration(
+              color: Colors.black.withOpacity(0.14),
+              borderRadius: BorderRadius.circular(9),
+              border: Border.all(
+                color: borderColor,
+              ),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  width: 34,
+                  height: 38,
+                  child: IconButton(
+                    padding: EdgeInsets.zero,
+                    onPressed: count > 0
+                        ? () {
+                      setState(() {
+                        card['count']--;
+                      });
+                    }
+                        : null,
+                    icon: Icon(
+                      Icons.remove_rounded,
+                      size: 17,
+                      color: count > 0
+                          ? Colors.white
+                          : secondaryTextColor,
+                    ),
+                  ),
+                ),
+
+                Container(
+                  width: 34,
+                  alignment: Alignment.center,
+                  child: Text(
+                    '$count',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+
+                SizedBox(
+                  width: 34,
+                  height: 38,
+                  child: IconButton(
+                    padding: EdgeInsets.zero,
+                    onPressed: () {
+                      setState(() {
+                        card['count']++;
+                      });
+                    },
+                    icon: const Icon(
+                      Icons.add_rounded,
+                      size: 17,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -342,9 +754,22 @@ class _CardScreenState extends State<CardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backgroundColor,
+
       appBar: AppBar(
-        title: const Text('보유 카드 입력'),
+        backgroundColor: backgroundColor,
+        foregroundColor: Colors.white,
+        elevation: 0,
+        centerTitle: false,
+        title: const Text(
+          '보유 카드',
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
       ),
+
       body: isLoading
           ? const Center(
         child: CircularProgressIndicator(),
@@ -356,127 +781,45 @@ class _CardScreenState extends State<CardScreen> {
           // ==================================================
 
           Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.fromLTRB(
+              16,
+              4,
+              16,
+              10,
+            ),
             child: Column(
               children: [
-                TextField(
-                  decoration: const InputDecoration(
-                    hintText: '카드 이름 또는 번호 검색',
-                    prefixIcon: Icon(Icons.search),
-                    border: OutlineInputBorder(),
-                  ),
-                  onChanged: (value) {
-                    setState(() {
-                      searchText = value;
-                    });
-                  },
-                ),
+                _buildSearchField(),
 
-                const SizedBox(height: 12),
+                const SizedBox(height: 10),
 
+                _buildFilters(),
+
+                const SizedBox(height: 10),
+
+                // 결과 수
                 Row(
                   children: [
-                    // 세트
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment:
-                        CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            '세트',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 4),
-                          _buildDropdown(
-                            value: selectedSeries,
-                            items: const [
-                              '전체',
-                              '오리진',
-                            ],
-                            onSelected: (value) {
-                              setState(() {
-                                selectedSeries = value;
-                              });
-                            },
-                          ),
-                        ],
+                    Text(
+                      '총 ${filteredCards.length}장',
+                      style: const TextStyle(
+                        color: secondaryTextColor,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
-
-                    const SizedBox(width: 8),
-
-                    // 종류
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment:
-                        CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            '종류',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 4),
-                          _buildDropdown(
-                            value: selectedType,
-                            items: const [
-                              '전체',
-                              '전설',
-                              '유닛',
-                              '주문',
-                              '도구',
-                              '룬',
-                            ],
-                            onSelected: (value) {
-                              setState(() {
-                                selectedType = value;
-                              });
-                            },
-                          ),
-                        ],
+                    const Spacer(),
+                    if (selectedSeries != '전체' ||
+                        selectedType != '전체' ||
+                        selectedColor != '전체' ||
+                        searchText.isNotEmpty)
+                      const Text(
+                        '필터 적용 중',
+                        style: TextStyle(
+                          color: Colors.white54,
+                          fontSize: 11,
+                        ),
                       ),
-                    ),
-
-                    const SizedBox(width: 8),
-
-                    // 속성
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment:
-                        CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            '속성',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 4),
-                          _buildDropdown(
-                            value: selectedColor,
-                            items: const [
-                              '전체',
-                              '분노',
-                              '평정',
-                              '정신',
-                              '신체',
-                              '혼돈',
-                              '질서',
-                              '전장',
-                            ],
-                            showColors: true,
-                            onSelected: (value) {
-                              setState(() {
-                                selectedColor = value;
-                              });
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
                   ],
                 ),
               ],
@@ -485,7 +828,6 @@ class _CardScreenState extends State<CardScreen> {
 
           // ==================================================
           // 카드 목록
-          // DeckCreateScreen과 동일한 UI
           // ==================================================
 
           Expanded(
@@ -493,199 +835,26 @@ class _CardScreenState extends State<CardScreen> {
                 ? const Center(
               child: Text(
                 '조건에 맞는 카드가 없습니다.',
+                style: TextStyle(
+                  color: secondaryTextColor,
+                  fontSize: 14,
+                ),
               ),
             )
                 : ListView.builder(
-              padding: const EdgeInsets.only(
-                bottom: 16,
+              padding:
+              const EdgeInsets.fromLTRB(
+                16,
+                2,
+                16,
+                16,
               ),
-              itemCount: filteredCards.length,
-              itemBuilder: (context, index) {
-                final card =
-                filteredCards[index];
-
-                final count =
-                card['count'] as int;
-
-                final type =
-                card['type'].toString();
-
-                final cardColor =
-                card['color'].toString();
-
-                final colors =
-                _getColors(cardColor);
-
-                final isBattlefield =
-                    cardColor == '무색';
-
-                final isLegend =
-                    type == '전설';
-
-                final isRune =
-                    type == '룬';
-
-                return Card(
-                  margin:
-                  const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 4,
-                  ),
-                  child: ListTile(
-                    // ==================================================
-                    // 카드 이름
-                    // ==================================================
-
-                    title: Row(
-                      children: [
-                        Flexible(
-                          child: Text(
-                            card['name']
-                                .toString(),
-                          ),
-                        ),
-
-                        if (isLegend)
-                          const Padding(
-                            padding:
-                            EdgeInsets.only(
-                              left: 8,
-                            ),
-                            child: Text(
-                              '전설',
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight:
-                                FontWeight
-                                    .bold,
-                              ),
-                            ),
-                          ),
-
-                        if (isRune)
-                          const Padding(
-                            padding:
-                            EdgeInsets.only(
-                              left: 8,
-                            ),
-                            child: Text(
-                              '룬',
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight:
-                                FontWeight
-                                    .bold,
-                              ),
-                            ),
-                          ),
-
-                        if (isBattlefield)
-                          const Padding(
-                            padding:
-                            EdgeInsets.only(
-                              left: 8,
-                            ),
-                            child: Text(
-                              '전장',
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight:
-                                FontWeight
-                                    .bold,
-                              ),
-                            ),
-                          ),
-                      ],
-                    ),
-
-                    // ==================================================
-                    // 카드 번호 + 속성
-                    // ==================================================
-
-                    subtitle: Row(
-                      children: [
-                        Text(
-                          card['number']
-                              .toString(),
-                        ),
-
-                        const SizedBox(
-                          width: 8,
-                        ),
-
-                        ...colors.map(
-                              (color) => Padding(
-                            padding:
-                            const EdgeInsets
-                                .only(
-                              right: 3,
-                            ),
-                            child: Container(
-                              width: 14,
-                              height: 14,
-                              decoration:
-                              BoxDecoration(
-                                color: color,
-                                shape:
-                                BoxShape
-                                    .circle,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    // ==================================================
-                    // 수량 조절
-                    // ==================================================
-
-                    trailing: Row(
-                      mainAxisSize:
-                      MainAxisSize.min,
-                      children: [
-                        IconButton(
-                          icon: const Icon(
-                            Icons.remove,
-                          ),
-                          onPressed: count > 0
-                              ? () {
-                            setState(() {
-                              card['count']--;
-                            });
-                          }
-                              : null,
-                        ),
-
-                        SizedBox(
-                          width: 30,
-                          child: Center(
-                            child: Text(
-                              '$count',
-                              style:
-                              const TextStyle(
-                                fontSize: 16,
-                                fontWeight:
-                                FontWeight
-                                    .bold,
-                              ),
-                            ),
-                          ),
-                        ),
-
-                        IconButton(
-                          icon: const Icon(
-                            Icons.add,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              card['count']++;
-                            });
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
+              itemCount:
+              filteredCards.length,
+              itemBuilder:
+                  (context, index) {
+                return _buildCardItem(
+                  filteredCards[index],
                 );
               },
             ),
@@ -695,22 +864,38 @@ class _CardScreenState extends State<CardScreen> {
           // 저장 버튼
           // ==================================================
 
-          Padding(
+          Container(
             padding: const EdgeInsets.fromLTRB(
               16,
-              0,
+              10,
               16,
               16,
             ),
+            decoration: BoxDecoration(
+              color: backgroundColor,
+              border: const Border(
+                top: BorderSide(
+                  color: borderColor,
+                ),
+              ),
+            ),
             child: SizedBox(
               width: double.infinity,
-              height: 50,
+              height: 48,
               child: FilledButton(
                 onPressed: saveCards,
+                style: FilledButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  foregroundColor: Colors.black,
+                  shape: RoundedRectangleBorder(
+                    borderRadius:
+                    BorderRadius.circular(10),
+                  ),
+                ),
                 child: const Text(
                   '보유 카드 저장',
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 14,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

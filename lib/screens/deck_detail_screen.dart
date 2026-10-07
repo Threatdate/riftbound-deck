@@ -14,8 +14,7 @@ class DeckDetailScreen extends StatefulWidget {
   });
 
   @override
-  State<DeckDetailScreen> createState() =>
-      _DeckDetailScreenState();
+  State<DeckDetailScreen> createState() => _DeckDetailScreenState();
 }
 
 class _DeckDetailScreenState extends State<DeckDetailScreen> {
@@ -30,6 +29,11 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
   String currentDeckName = '';
 
   bool showShortageOnly = false;
+
+  static const Color backgroundColor = Color(0xFF111318);
+  static const Color panelColor = Color(0xFF1B1F27);
+  static const Color borderColor = Color(0xFF292E38);
+  static const Color secondaryTextColor = Color(0xFF9298A5);
 
   @override
   void initState() {
@@ -97,6 +101,7 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
+          backgroundColor: const Color(0xFF2A2F38),
           content: Text(
             '덱 정보를 불러오는 중 오류가 발생했습니다: $e',
           ),
@@ -338,37 +343,30 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
     final color = card['color'].toString();
     final currentCount = getCardCount(card);
 
-    // 룬을 제외한 카드는 동일 카드 최대 3장
     if (type != '룬' && currentCount >= 3) {
       return false;
     }
 
-    // 전설 총 1장
     if (type == '전설' && legendCount >= 1) {
       return false;
     }
 
-    // 룬 총 12장
     if (type == '룬' && runeCount >= 12) {
       return false;
     }
 
-    // 전장 총 3장
     if (color == '무색' && battlefieldCount >= 3) {
       return false;
     }
 
-    // 메인 덱 총 40장
     if (isMainDeckCard(card) && mainDeckCount >= 40) {
       return false;
     }
 
-    // 전설 속성 제한
     if (!isCardColorAllowed(card)) {
       return false;
     }
 
-    // 룬 속성 제한
     if (!isRuneAllowed(card)) {
       return false;
     }
@@ -386,32 +384,26 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
     final type = card['type'].toString();
     final color = card['color'].toString();
 
-    // 전설
     if (type == '전설' && legendCount >= 1) {
       return false;
     }
 
-    // 룬
     if (type == '룬' && runeCount >= 12) {
       return false;
     }
 
-    // 전장
     if (color == '무색' && battlefieldCount >= 3) {
       return false;
     }
 
-    // 메인 덱
     if (isMainDeckCard(card) && mainDeckCount >= 40) {
       return false;
     }
 
-    // 전설 속성 제한
     if (!isCardColorAllowed(card)) {
       return false;
     }
 
-    // 룬 속성 제한
     if (!isRuneAllowed(card)) {
       return false;
     }
@@ -463,6 +455,7 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
     if (cards.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
+          backgroundColor: Color(0xFF2A2F38),
           content: Text('내보낼 카드가 없습니다.'),
         ),
       );
@@ -480,6 +473,7 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
 
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
+        backgroundColor: Color(0xFF2A2F38),
         content: Text('덱 코드가 클립보드에 복사되었습니다.'),
       ),
     );
@@ -517,6 +511,7 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
 
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
+        backgroundColor: Color(0xFF2A2F38),
         content: Text(
           '덱 이름이 변경되었습니다. 저장 버튼을 눌러 적용하세요.',
         ),
@@ -535,10 +530,21 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
       context: context,
       builder: (dialogContext) {
         return AlertDialog(
-          title: const Text('덱 삭제'),
+          backgroundColor: panelColor,
+          title: const Text(
+            '덱 삭제',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           content: Text(
             '정말 "$currentDeckName" 덱을 삭제하시겠습니까?\n\n'
                 '이 덱에 저장된 카드 정보도 함께 삭제됩니다.',
+            style: const TextStyle(
+              color: secondaryTextColor,
+              height: 1.5,
+            ),
           ),
           actions: [
             TextButton(
@@ -548,7 +554,12 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
                   false,
                 );
               },
-              child: const Text('취소'),
+              child: const Text(
+                '취소',
+                style: TextStyle(
+                  color: secondaryTextColor,
+                ),
+              ),
             ),
             FilledButton(
               onPressed: () {
@@ -558,7 +569,7 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
                 );
               },
               style: FilledButton.styleFrom(
-                backgroundColor: Colors.red,
+                backgroundColor: Colors.red.shade700,
               ),
               child: const Text('삭제'),
             ),
@@ -604,6 +615,7 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
+          backgroundColor: const Color(0xFF2A2F38),
           content: Text(
             '덱 삭제 중 오류가 발생했습니다: $e',
           ),
@@ -649,6 +661,7 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
       if (availableCards.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
+            backgroundColor: Color(0xFF2A2F38),
             content: Text('추가할 수 있는 카드가 없습니다.'),
           ),
         );
@@ -660,6 +673,7 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
       await showModalBottomSheet<Map<String, dynamic>>(
         context: context,
         isScrollControlled: true,
+        backgroundColor: backgroundColor,
         builder: (context) {
           String searchText = '';
 
@@ -712,6 +726,7 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
                               child: Text(
                                 '카드 추가',
                                 style: TextStyle(
+                                  color: Colors.white,
                                   fontSize: 20,
                                   fontWeight:
                                   FontWeight.bold,
@@ -726,6 +741,7 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
                               },
                               icon: const Icon(
                                 Icons.close,
+                                color: Colors.white,
                               ),
                             ),
                           ],
@@ -737,19 +753,51 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
                               searchText = value;
                             });
                           },
+                          style: const TextStyle(
+                            color: Colors.white,
+                          ),
                           decoration:
                           InputDecoration(
                             hintText:
                             '카드 이름 또는 번호 검색',
+                            hintStyle:
+                            const TextStyle(
+                              color:
+                              secondaryTextColor,
+                            ),
                             prefixIcon:
                             const Icon(
                               Icons.search,
+                              color:
+                              secondaryTextColor,
                             ),
-                            border:
+                            filled: true,
+                            fillColor:
+                            panelColor,
+                            enabledBorder:
                             OutlineInputBorder(
                               borderRadius:
-                              BorderRadius.circular(
-                                10,
+                              BorderRadius
+                                  .circular(
+                                12,
+                              ),
+                              borderSide:
+                              const BorderSide(
+                                color:
+                                borderColor,
+                              ),
+                            ),
+                            focusedBorder:
+                            OutlineInputBorder(
+                              borderRadius:
+                              BorderRadius
+                                  .circular(
+                                12,
+                              ),
+                              borderSide:
+                              const BorderSide(
+                                color:
+                                Colors.white24,
                               ),
                             ),
                           ),
@@ -764,7 +812,7 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
                               style:
                               TextStyle(
                                 color:
-                                Colors.grey,
+                                secondaryTextColor,
                               ),
                             ),
                           )
@@ -787,34 +835,61 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
                                 card,
                               );
 
-                              return Card(
+                              final colors =
+                              _getColors(
+                                card['color']
+                                    .toString(),
+                              );
+
+                              return Container(
                                 margin:
                                 const EdgeInsets
                                     .only(
                                   bottom: 8,
                                 ),
+                                decoration:
+                                BoxDecoration(
+                                  color:
+                                  panelColor,
+                                  borderRadius:
+                                  BorderRadius
+                                      .circular(
+                                    12,
+                                  ),
+                                  border:
+                                  Border.all(
+                                    color:
+                                    borderColor,
+                                  ),
+                                ),
                                 child:
                                 ListTile(
                                   enabled:
                                   canAdd,
+                                  contentPadding:
+                                  const EdgeInsets
+                                      .symmetric(
+                                    horizontal:
+                                    14,
+                                    vertical:
+                                    4,
+                                  ),
                                   leading:
                                   Row(
                                     mainAxisSize:
                                     MainAxisSize
                                         .min,
                                     children:
-                                    _getColors(
-                                      card['color']
-                                          .toString(),
-                                    ).map(
+                                    colors
+                                        .map(
                                           (
                                           color,
                                           ) {
                                         return Container(
                                           width:
-                                          20,
+                                          12,
                                           height:
-                                          20,
+                                          12,
                                           margin:
                                           const EdgeInsets
                                               .symmetric(
@@ -837,27 +912,46 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
                                     card['name']
                                         .toString(),
                                     style:
-                                    const TextStyle(
+                                    TextStyle(
+                                      color:
+                                      canAdd
+                                          ? Colors.white
+                                          : Colors.grey,
                                       fontWeight:
                                       FontWeight.bold,
                                     ),
                                   ),
                                   subtitle:
-                                  Text(
-                                    canAdd
-                                        ? '${card['number']} · ${card['series']}'
-                                        : _getAddBlockedReason(
-                                      card,
+                                  Padding(
+                                    padding:
+                                    const EdgeInsets
+                                        .only(
+                                      top: 3,
+                                    ),
+                                    child:
+                                    Text(
+                                      canAdd
+                                          ? '${card['number']} · ${card['series']}'
+                                          : _getAddBlockedReason(
+                                        card,
+                                      ),
+                                      style:
+                                      const TextStyle(
+                                        color:
+                                        secondaryTextColor,
+                                        fontSize:
+                                        12,
+                                      ),
                                     ),
                                   ),
                                   trailing:
                                   Icon(
                                     Icons
-                                        .add_circle,
-                                    color: canAdd
-                                        ? null
-                                        : Colors
-                                        .grey,
+                                        .add_circle_outline,
+                                    color:
+                                    canAdd
+                                        ? Colors.white
+                                        : Colors.grey,
                                   ),
                                   onTap:
                                   canAdd
@@ -893,13 +987,6 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
       final color =
       selectedCard['color'].toString();
 
-      // ========================================================
-      // ★ 전설은 DB 기준으로 다시 확인
-      //
-      // 화면의 legendCount만 믿지 않고
-      // 실제 deck_cards + cards를 다시 확인한다.
-      // ========================================================
-
       if (type == '전설') {
         final legendRows = await db.rawQuery(
           '''
@@ -925,8 +1012,11 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
         if (legendRows.isNotEmpty) {
           if (!mounted) return;
 
-          ScaffoldMessenger.of(context).showSnackBar(
+          ScaffoldMessenger.of(context)
+              .showSnackBar(
             const SnackBar(
+              backgroundColor:
+              Color(0xFF2A2F38),
               content: Text(
                 '전설은 1장만 사용할 수 있습니다.',
               ),
@@ -937,16 +1027,15 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
         }
       }
 
-      // --------------------------------------------------------
-      // 선택 후 한 번 더 제한 확인
-      // --------------------------------------------------------
-
       if (isMainDeckCard(selectedCard) &&
           mainDeckCount >= 40) {
         if (!mounted) return;
 
-        ScaffoldMessenger.of(context).showSnackBar(
+        ScaffoldMessenger.of(context)
+            .showSnackBar(
           const SnackBar(
+            backgroundColor:
+            Color(0xFF2A2F38),
             content: Text(
               '메인 덱은 최대 40장입니다.',
             ),
@@ -960,8 +1049,11 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
           legendCount >= 1) {
         if (!mounted) return;
 
-        ScaffoldMessenger.of(context).showSnackBar(
+        ScaffoldMessenger.of(context)
+            .showSnackBar(
           const SnackBar(
+            backgroundColor:
+            Color(0xFF2A2F38),
             content: Text(
               '전설은 1장만 사용할 수 있습니다.',
             ),
@@ -975,8 +1067,11 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
           runeCount >= 12) {
         if (!mounted) return;
 
-        ScaffoldMessenger.of(context).showSnackBar(
+        ScaffoldMessenger.of(context)
+            .showSnackBar(
           const SnackBar(
+            backgroundColor:
+            Color(0xFF2A2F38),
             content: Text(
               '룬은 총 12장까지 사용할 수 있습니다.',
             ),
@@ -990,8 +1085,11 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
           battlefieldCount >= 3) {
         if (!mounted) return;
 
-        ScaffoldMessenger.of(context).showSnackBar(
+        ScaffoldMessenger.of(context)
+            .showSnackBar(
           const SnackBar(
+            backgroundColor:
+            Color(0xFF2A2F38),
             content: Text(
               '전장은 총 3장까지 사용할 수 있습니다.',
             ),
@@ -1001,11 +1099,16 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
         return;
       }
 
-      if (!isCardColorAllowed(selectedCard)) {
+      if (!isCardColorAllowed(
+        selectedCard,
+      )) {
         if (!mounted) return;
 
-        ScaffoldMessenger.of(context).showSnackBar(
+        ScaffoldMessenger.of(context)
+            .showSnackBar(
           const SnackBar(
+            backgroundColor:
+            Color(0xFF2A2F38),
             content: Text(
               '현재 전설의 속성과 맞지 않는 카드입니다.',
             ),
@@ -1018,8 +1121,11 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
       if (!isRuneAllowed(selectedCard)) {
         if (!mounted) return;
 
-        ScaffoldMessenger.of(context).showSnackBar(
+        ScaffoldMessenger.of(context)
+            .showSnackBar(
           const SnackBar(
+            backgroundColor:
+            Color(0xFF2A2F38),
             content: Text(
               '현재 전설의 속성과 맞지 않는 룬입니다.',
             ),
@@ -1038,10 +1144,6 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
       if (cardId == 0) {
         return;
       }
-
-      // ========================================================
-      // 새 카드는 무조건 1장으로 추가
-      // ========================================================
 
       final existingRows = await db.query(
         'deck_cards',
@@ -1081,6 +1183,8 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
           ScaffoldMessenger.of(context)
               .showSnackBar(
             const SnackBar(
+              backgroundColor:
+              Color(0xFF2A2F38),
               content: Text(
                 '같은 카드는 최대 3장까지 사용할 수 있습니다.',
               ),
@@ -1108,6 +1212,8 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
+          backgroundColor:
+          const Color(0xFF2A2F38),
           content: Text(
             '${selectedCard['name']} 카드가 1장 추가되었습니다.',
           ),
@@ -1118,6 +1224,8 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
+          backgroundColor:
+          const Color(0xFF2A2F38),
           content: Text(
             '카드 추가 중 오류가 발생했습니다: $e',
           ),
@@ -1294,6 +1402,7 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
+          backgroundColor: Color(0xFF2A2F38),
           content: Text('덱이 수정되었습니다.'),
         ),
       );
@@ -1304,6 +1413,8 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
+          backgroundColor:
+          const Color(0xFF2A2F38),
           content: Text(
             '덱 수정 중 오류가 발생했습니다: $e',
           ),
@@ -1383,8 +1494,7 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
       }
     }
 
-    final filteredCards =
-    showShortageOnly
+    final filteredCards = showShortageOnly
         ? cards.where((card) {
       final int need =
           int.tryParse(
@@ -1405,12 +1515,25 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
         : cards;
 
     return Scaffold(
+      backgroundColor: backgroundColor,
       appBar: AppBar(
-        title: Text(currentDeckName),
+        backgroundColor: backgroundColor,
+        foregroundColor: Colors.white,
+        elevation: 0,
+        centerTitle: false,
+        title: const Text(
+          '덱 수정',
+          style: TextStyle(
+            fontSize: 21,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         actions: [
           IconButton(
             onPressed: exportDeckCode,
-            icon: const Icon(Icons.copy),
+            icon: const Icon(
+              Icons.copy_outlined,
+            ),
             tooltip: '덱 코드 복사',
           ),
           IconButton(
@@ -1423,787 +1546,802 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
             ),
             tooltip: '덱 삭제',
           ),
+          const SizedBox(width: 4),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: isLoading
-            ? const Center(
-          child:
-          CircularProgressIndicator(),
-        )
-            : cards.isEmpty
-            ? Column(
-          crossAxisAlignment:
-          CrossAxisAlignment
-              .start,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    currentDeckName,
-                    style:
-                    const TextStyle(
-                      fontSize: 22,
-                      fontWeight:
-                      FontWeight
-                          .bold,
-                    ),
-                  ),
-                ),
-                IconButton(
-                  onPressed:
-                  editDeckName,
-                  icon: const Icon(
-                    Icons.edit,
-                  ),
-                  tooltip:
-                  '덱 이름 수정',
-                ),
-              ],
+      body: SafeArea(
+        child: Padding(
+          padding:
+          const EdgeInsets.fromLTRB(
+            16,
+            4,
+            16,
+            12,
+          ),
+          child: isLoading
+              ? const Center(
+            child:
+            CircularProgressIndicator(
+              color: Colors.white,
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            const Expanded(
-              child: Center(
-                child: Text(
-                  '이 덱에는 카드가 없습니다.',
-                ),
-              ),
-            ),
-            SizedBox(
-              width:
-              double.infinity,
-              height: 50,
-              child:
-              OutlinedButton
-                  .icon(
-                onPressed:
-                addCardToDeck,
-                icon: const Icon(
-                  Icons.add,
-                ),
-                label:
-                const Text(
-                  '카드 추가',
-                  style:
-                  TextStyle(
-                    fontSize:
-                    16,
-                    fontWeight:
-                    FontWeight
-                        .bold,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        )
-            : Column(
-          crossAxisAlignment:
-          CrossAxisAlignment
-              .start,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    currentDeckName,
-                    style:
-                    const TextStyle(
-                      fontSize: 22,
-                      fontWeight:
-                      FontWeight
-                          .bold,
-                    ),
-                  ),
-                ),
-                IconButton(
-                  onPressed:
-                  editDeckName,
-                  icon: const Icon(
-                    Icons.edit,
-                  ),
-                  tooltip:
-                  '덱 이름 수정',
-                ),
-              ],
-            ),
-
-            const SizedBox(
-              height: 8,
-            ),
-
-            Text(
-              '총 $totalCount장',
-              style:
-              const TextStyle(
-                color: Colors.grey,
-              ),
-            ),
-
-            const SizedBox(
-              height: 12,
-            ),
-
-            // ==================================================
-            // 덱 구성 현황
-            // ==================================================
-
-            Container(
-              width:
-              double.infinity,
-              padding:
-              const EdgeInsets
-                  .symmetric(
-                horizontal: 16,
-                vertical: 10,
-              ),
-              color:
-              Colors.grey.shade100,
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment:
-                    MainAxisAlignment
-                        .spaceBetween,
-                    children: [
-                      Text(
-                        '메인 덱: $mainDeckCount / 40',
-                        style:
-                        const TextStyle(
-                          fontSize: 16,
-                          fontWeight:
-                          FontWeight
-                              .bold,
-                        ),
-                      ),
-                      Text(
-                        '전설: $legendCount / 1',
-                        style:
-                        const TextStyle(
-                          fontSize: 14,
-                          fontWeight:
-                          FontWeight
-                              .bold,
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  const SizedBox(
-                    height: 4,
-                  ),
-
-                  Row(
-                    mainAxisAlignment:
-                    MainAxisAlignment
-                        .spaceBetween,
-                    children: [
-                      Text(
-                        '룬: $runeCount / 12',
-                        style:
-                        const TextStyle(
-                          fontSize: 14,
-                          fontWeight:
-                          FontWeight
-                              .bold,
-                        ),
-                      ),
-                      Text(
-                        '전장: $battlefieldCount / 3',
-                        style:
-                        const TextStyle(
-                          fontSize: 14,
-                          fontWeight:
-                          FontWeight
-                              .bold,
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  const SizedBox(
-                    height: 8,
-                  ),
-
-                  if (selectedLegend !=
-                      null)
-                    Align(
-                      alignment:
-                      Alignment
-                          .centerLeft,
-                      child: Text(
-                        '선택한 전설 속성: '
-                            '${allowedLegendColors.join(', ')}',
-                        style:
-                        const TextStyle(
-                          fontSize: 13,
-                        ),
-                      ),
-                    ),
-
-                  const SizedBox(
-                    height: 8,
-                  ),
-                ],
-              ),
-            ),
-
-            const SizedBox(
-              height: 12,
-            ),
-
-            SizedBox(
-              width:
-              double.infinity,
-              height: 45,
-              child:
-              OutlinedButton
-                  .icon(
-                onPressed:
-                addCardToDeck,
-                icon: const Icon(
-                  Icons.add,
-                ),
-                label:
-                const Text(
-                  '카드 추가',
-                  style:
-                  TextStyle(
-                    fontSize:
-                    15,
-                    fontWeight:
-                    FontWeight
-                        .bold,
-                  ),
-                ),
-              ),
-            ),
-
-            const SizedBox(
-              height: 12,
-            ),
-
-            Container(
-              width:
-              double.infinity,
-              padding:
-              const EdgeInsets
-                  .all(16),
-              decoration:
-              BoxDecoration(
-                color:
-                shortageCount >
-                    0
-                    ? Colors
-                    .red
-                    .shade50
-                    : Colors
-                    .green
-                    .shade50,
-                borderRadius:
-                BorderRadius
-                    .circular(
-                  12,
-                ),
-                border:
-                Border.all(
-                  color:
-                  shortageCount >
-                      0
-                      ? Colors
-                      .red
-                      .shade200
-                      : Colors
-                      .green
-                      .shade200,
-                ),
-              ),
-              child: Row(
-                children: [
-                  Icon(
-                    shortageCount >
-                        0
-                        ? Icons
-                        .warning_amber_rounded
-                        : Icons
-                        .check_circle,
-                    color:
-                    shortageCount >
-                        0
-                        ? Colors
-                        .red
-                        : Colors
-                        .green,
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Expanded(
-                    child: Text(
-                      shortageCount >
-                          0
-                          ? '$shortageCount장 부족합니다.'
-                          : '이 덱의 모든 카드를 보유하고 있습니다.',
-                      style:
-                      TextStyle(
-                        fontWeight:
-                        FontWeight
-                            .bold,
-                        color:
-                        shortageCount >
-                            0
-                            ? Colors
-                            .red
-                            : Colors
-                            .green,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-            const SizedBox(
-              height: 12,
-            ),
-
-            Row(
-              children: [
-                Expanded(
-                  child:
-                  _buildFilterButton(
-                    title:
-                    '전체 카드',
-                    selected:
-                    !showShortageOnly,
-                    onPressed: () {
-                      setState(() {
-                        showShortageOnly =
-                        false;
-                      });
-                    },
-                  ),
-                ),
-                const SizedBox(
-                  width: 8,
-                ),
-                Expanded(
-                  child:
-                  _buildFilterButton(
-                    title:
-                    '부족 카드 $shortageCount장',
-                    selected:
-                    showShortageOnly,
-                    onPressed: () {
-                      setState(() {
-                        showShortageOnly =
-                        true;
-                      });
-                    },
-                  ),
-                ),
-              ],
-            ),
-
-            const SizedBox(
-              height: 12,
-            ),
-
-            Expanded(
-              child:
-              filteredCards.isEmpty
-                  ? Center(
-                child:
-                Column(
-                  mainAxisAlignment:
-                  MainAxisAlignment
-                      .center,
-                  children: [
-                    Icon(
-                      Icons
-                          .check_circle_outline,
-                      size: 60,
-                      color: Colors
-                          .green
-                          .shade400,
-                    ),
-                    const SizedBox(
-                      height:
-                      12,
-                    ),
-                    const Text(
-                      '부족한 카드가 없습니다.',
-                      style:
-                      TextStyle(
-                        fontSize:
-                        16,
-                        fontWeight:
-                        FontWeight
-                            .bold,
-                      ),
-                    ),
-                  ],
-                ),
-              )
-                  : ListView
-                  .builder(
-                padding:
-                const EdgeInsets
-                    .only(
-                  bottom:
-                  16,
-                ),
-                itemCount:
-                filteredCards
-                    .length,
-                itemBuilder:
-                    (
-                    context,
-                    index,
-                    ) {
-                  final card =
-                  filteredCards[
-                  index];
-
-                  final int
-                  need =
-                      int.tryParse(
-                        card[
-                        'deck_count']
-                            .toString(),
-                      ) ??
-                          0;
-
-                  final int
-                  owned =
-                      int.tryParse(
-                        card[
-                        'owned_count']
-                            .toString(),
-                      ) ??
-                          0;
-
-                  final int
-                  shortage =
-                  need >
-                      owned
-                      ? need -
-                      owned
-                      : 0;
-
-                  final type =
-                  card[
-                  'type']
-                      .toString();
-
-                  final cardColor =
-                  card[
-                  'color']
-                      .toString();
-
-                  final colors =
-                  _getColors(
-                    cardColor,
-                  );
-
-                  final isLegend =
-                      type ==
-                          '전설';
-
-                  final isRune =
-                      type ==
-                          '룬';
-
-                  final isBattlefield =
-                      cardColor ==
-                          '무색';
-
-                  final canIncrease =
-                  canIncreaseCard(
-                    card,
-                  );
-
-                  return Card(
-                    margin:
-                    const EdgeInsets
-                        .symmetric(
-                      horizontal:
-                      0,
-                      vertical:
-                      4,
-                    ),
-                    child:
-                    ListTile(
-                      title:
-                      Row(
-                        children: [
-                          Flexible(
-                            child:
-                            Text(
-                              card[
-                              'name']
-                                  .toString(),
-                            ),
-                          ),
-                          if (isLegend)
-                            const Padding(
-                              padding:
-                              EdgeInsets.only(
-                                left:
-                                8,
-                              ),
-                              child:
-                              Text(
-                                '전설',
-                                style:
-                                TextStyle(
-                                  fontSize:
-                                  12,
-                                  fontWeight:
-                                  FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          if (isRune)
-                            const Padding(
-                              padding:
-                              EdgeInsets.only(
-                                left:
-                                8,
-                              ),
-                              child:
-                              Text(
-                                '룬',
-                                style:
-                                TextStyle(
-                                  fontSize:
-                                  12,
-                                  fontWeight:
-                                  FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          if (isBattlefield)
-                            const Padding(
-                              padding:
-                              EdgeInsets.only(
-                                left:
-                                8,
-                              ),
-                              child:
-                              Text(
-                                '전장',
-                                style:
-                                TextStyle(
-                                  fontSize:
-                                  12,
-                                  fontWeight:
-                                  FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                        ],
-                      ),
-                      subtitle:
-                      Column(
-                        crossAxisAlignment:
-                        CrossAxisAlignment
-                            .start,
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                card[
-                                'number']
-                                    .toString(),
-                              ),
-                              const SizedBox(
-                                width:
-                                8,
-                              ),
-                              ...colors.map(
-                                    (
-                                    color,
-                                    ) =>
-                                    Padding(
-                                      padding:
-                                      const EdgeInsets.only(
-                                        right:
-                                        3,
-                                      ),
-                                      child:
-                                      Container(
-                                        width:
-                                        14,
-                                        height:
-                                        14,
-                                        decoration:
-                                        BoxDecoration(
-                                          color:
-                                          color,
-                                          shape:
-                                          BoxShape.circle,
-                                        ),
-                                      ),
-                                    ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height:
-                            4,
-                          ),
-                          Text(
-                            '필요 $need장  ·  보유 $owned장',
-                            style:
-                            const TextStyle(
-                              fontSize:
-                              14,
-                            ),
-                          ),
-                          const SizedBox(
-                            height:
-                            4,
-                          ),
-                          Text(
-                            shortage >
-                                0
-                                ? '$shortage장 부족'
-                                : '보유',
-                            style:
-                            TextStyle(
-                              fontSize:
-                              14,
-                              fontWeight:
-                              FontWeight.bold,
-                              color:
-                              shortage > 0
-                                  ? Colors.red
-                                  : Colors.green,
-                            ),
-                          ),
-                        ],
-                      ),
-                      trailing:
-                      Row(
-                        mainAxisSize:
-                        MainAxisSize
-                            .min,
-                        children: [
-                          IconButton(
-                            icon:
-                            const Icon(
-                              Icons
-                                  .remove,
-                            ),
-                            onPressed:
-                            need >
-                                0
-                                ? () {
-                              setState(
-                                    () {
-                                  card[
-                                  'deck_count'] = need - 1;
-                                },
-                              );
-                            }
-                                : null,
-                          ),
-                          SizedBox(
-                            width:
-                            30,
-                            child:
-                            Center(
-                              child:
-                              Text(
-                                '$need',
-                                style:
-                                const TextStyle(
-                                  fontSize:
-                                  16,
-                                  fontWeight:
-                                  FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-                          IconButton(
-                            icon:
-                            const Icon(
-                              Icons
-                                  .add,
-                            ),
-                            onPressed:
-                            canIncrease
-                                ? () {
-                              setState(
-                                    () {
-                                  card[
-                                  'deck_count'] = need + 1;
-                                },
-                              );
-                            }
-                                : null,
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-
-            const SizedBox(
-              height: 12,
-            ),
-
-            SizedBox(
-              width:
-              double.infinity,
-              height: 50,
-              child:
-              FilledButton.icon(
-                onPressed: isSaving
-                    ? null
-                    : saveDeckChanges,
-                icon: isSaving
-                    ? const SizedBox(
-                  width: 20,
-                  height: 20,
-                  child:
-                  CircularProgressIndicator(
-                    strokeWidth:
-                    2,
-                  ),
-                )
-                    : const Icon(
-                  Icons.save,
-                ),
-                label: Text(
-                  isSaving
-                      ? '저장 중...'
-                      : '덱 수정 저장',
-                  style:
-                  const TextStyle(
-                    fontSize: 16,
-                    fontWeight:
-                    FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-          ],
+          )
+              : cards.isEmpty
+              ? _buildEmptyDeck()
+              : _buildDeckContent(
+            totalCount,
+            shortageCount,
+            filteredCards,
+          ),
         ),
       ),
     );
   }
 
   // ============================================================
-  // 전체 / 부족 카드 버튼
+  // 빈 덱 화면
+  // ============================================================
+
+  Widget _buildEmptyDeck() {
+    return Column(
+      crossAxisAlignment:
+      CrossAxisAlignment.start,
+      children: [
+        _buildDeckHeader(),
+
+        const SizedBox(height: 12),
+
+        Expanded(
+          child: Center(
+            child: Column(
+              mainAxisAlignment:
+              MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 72,
+                  height: 72,
+                  decoration: BoxDecoration(
+                    color: panelColor,
+                    borderRadius:
+                    BorderRadius.circular(
+                      20,
+                    ),
+                    border: Border.all(
+                      color: borderColor,
+                    ),
+                  ),
+                  child: const Icon(
+                    Icons.style_outlined,
+                    size: 34,
+                    color: secondaryTextColor,
+                  ),
+                ),
+
+                const SizedBox(height: 16),
+
+                const Text(
+                  '이 덱에는 카드가 없습니다.',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight:
+                    FontWeight.bold,
+                  ),
+                ),
+
+                const SizedBox(height: 8),
+
+                const Text(
+                  '카드를 추가해서 덱을 구성해보세요.',
+                  style: TextStyle(
+                    color: secondaryTextColor,
+                    fontSize: 13,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+
+        _buildAddCardButton(),
+      ],
+    );
+  }
+
+  // ============================================================
+  // 덱 내용
+  // ============================================================
+
+  Widget _buildDeckContent(
+      int totalCount,
+      int shortageCount,
+      List<Map<String, dynamic>>
+      filteredCards,
+      ) {
+    return Column(
+      crossAxisAlignment:
+      CrossAxisAlignment.start,
+      children: [
+        _buildDeckHeader(),
+
+        const SizedBox(height: 4),
+
+        Row(
+          children: [
+            Text(
+              '총 $totalCount장',
+              style: const TextStyle(
+                color: secondaryTextColor,
+                fontSize: 12,
+              ),
+            ),
+            const SizedBox(width: 8),
+            Container(
+              width: 3,
+              height: 3,
+              decoration:
+              const BoxDecoration(
+                color: secondaryTextColor,
+                shape: BoxShape.circle,
+              ),
+            ),
+            const SizedBox(width: 8),
+            Text(
+              '수록 카드 ${cards.length}종',
+              style: const TextStyle(
+                color: secondaryTextColor,
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+
+        const SizedBox(height: 8),
+
+        // 기존 구성 현황 디자인 유지 + 세로 여백만 압축
+        _buildDeckStatus(),
+
+        const SizedBox(height: 7),
+
+        // 카드 추가 버튼도 조금 얇게
+        _buildAddCardButtonCompact(),
+
+        const SizedBox(height: 7),
+
+        // 부족 안내를 작은 한 줄로 표시
+        _buildShortageCompact(
+          shortageCount,
+        ),
+
+        const SizedBox(height: 7),
+
+        // 필터 버튼도 기존 디자인 유지하면서 높이 축소
+        Row(
+          children: [
+            Expanded(
+              child: _buildFilterButtonCompact(
+                title: '전체 카드',
+                selected:
+                !showShortageOnly,
+                onPressed: () {
+                  setState(() {
+                    showShortageOnly =
+                    false;
+                  });
+                },
+              ),
+            ),
+            const SizedBox(width: 6),
+            Expanded(
+              child: _buildFilterButtonCompact(
+                title:
+                '부족 카드 $shortageCount장',
+                selected:
+                showShortageOnly,
+                onPressed: () {
+                  setState(() {
+                    showShortageOnly =
+                    true;
+                  });
+                },
+              ),
+            ),
+          ],
+        ),
+
+        const SizedBox(height: 7),
+
+        // 이 영역이 남은 공간을 모두 사용하므로
+        // 카드가 여러 장 보이면서 아래로 스크롤 가능
+        Expanded(
+          child: filteredCards.isEmpty
+              ? _buildNoShortage()
+              : ListView.builder(
+            padding:
+            const EdgeInsets.only(
+              bottom: 8,
+            ),
+            itemCount:
+            filteredCards.length,
+            itemBuilder:
+                (
+                context,
+                index,
+                ) {
+              return _buildCardItem(
+                filteredCards[index],
+              );
+            },
+          ),
+        ),
+
+        const SizedBox(height: 7),
+
+        _buildSaveButtonCompact(),
+      ],
+    );
+  }
+
+  // ============================================================
+  // 덱 헤더
+  // ============================================================
+
+  Widget _buildDeckHeader() {
+    return Row(
+      children: [
+        Expanded(
+          child: Column(
+            crossAxisAlignment:
+            CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Flexible(
+                    child: Text(
+                      currentDeckName,
+                      maxLines: 1,
+                      overflow:
+                      TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 22,
+                        fontWeight:
+                        FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 6),
+                  IconButton(
+                    onPressed:
+                    editDeckName,
+                    padding: EdgeInsets.zero,
+                    constraints:
+                    const BoxConstraints(
+                      minWidth: 36,
+                      minHeight: 36,
+                    ),
+                    icon: const Icon(
+                      Icons.edit_outlined,
+                      size: 19,
+                      color:
+                      secondaryTextColor,
+                    ),
+                    tooltip: '덱 이름 수정',
+                  ),
+                ],
+              ),
+              const SizedBox(height: 0),
+              const Text(
+                '덱 구성 및 카드 수량을 관리하세요.',
+                style: TextStyle(
+                  color: secondaryTextColor,
+                  fontSize: 12,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  // ============================================================
+  // 덱 구성 현황
+  // ============================================================
+
+  Widget _buildDeckStatus() {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: panelColor,
+        borderRadius:
+        BorderRadius.circular(12),
+        border: Border.all(
+          color: borderColor,
+        ),
+      ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: _buildCountItem(
+                  icon: Icons.layers_outlined,
+                  title: '메인 덱',
+                  current: mainDeckCount,
+                  max: 40,
+                  accent:
+                  Colors.blueAccent,
+                ),
+              ),
+              const SizedBox(width: 7),
+              Expanded(
+                child: _buildCountItem(
+                  icon:
+                  Icons.workspace_premium_outlined,
+                  title: '전설',
+                  current: legendCount,
+                  max: 1,
+                  accent: Colors.amber,
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 7),
+
+          Row(
+            children: [
+              Expanded(
+                child: _buildCountItem(
+                  icon: Icons.auto_awesome_outlined,
+                  title: '룬',
+                  current: runeCount,
+                  max: 12,
+                  accent: Colors.purple,
+                ),
+              ),
+              const SizedBox(width: 7),
+              Expanded(
+                child: _buildCountItem(
+                  icon:
+                  Icons.landscape_outlined,
+                  title: '전장',
+                  current:
+                  battlefieldCount,
+                  max: 3,
+                  accent: Colors.grey,
+                ),
+              ),
+            ],
+          ),
+
+          if (selectedLegend != null) ...[
+            const SizedBox(height: 7),
+            Container(
+              width: double.infinity,
+              padding:
+              const EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: 7,
+              ),
+              decoration: BoxDecoration(
+                color:
+                const Color(0xFF15181E),
+                borderRadius:
+                BorderRadius.circular(
+                  8,
+                ),
+                border: Border.all(
+                  color: borderColor,
+                ),
+              ),
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.tune,
+                    size: 14,
+                    color:
+                    secondaryTextColor,
+                  ),
+                  const SizedBox(width: 6),
+                  const Text(
+                    '전설 속성',
+                    style: TextStyle(
+                      color:
+                      secondaryTextColor,
+                      fontSize: 11,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Row(
+                      children:
+                      allowedLegendColors
+                          .map(
+                            (colorName) =>
+                            Padding(
+                              padding:
+                              const EdgeInsets
+                                  .only(
+                                right: 8,
+                              ),
+                              child:
+                              Row(
+                                children: [
+                                  Container(
+                                    width: 7,
+                                    height: 7,
+                                    decoration:
+                                    BoxDecoration(
+                                      color:
+                                      _getColor(
+                                        colorName,
+                                      ),
+                                      shape:
+                                      BoxShape.circle,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 4,
+                                  ),
+                                  Text(
+                                    colorName,
+                                    style:
+                                    const TextStyle(
+                                      color:
+                                      Colors.white,
+                                      fontSize:
+                                      11,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                      ).toList(),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCountItem({
+    required IconData icon,
+    required String title,
+    required int current,
+    required int max,
+    required Color accent,
+  }) {
+    final progress =
+    (current / max).clamp(0.0, 1.0);
+
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 9,
+        vertical: 8,
+      ),
+      decoration: BoxDecoration(
+        color: const Color(0xFF15181E),
+        borderRadius:
+        BorderRadius.circular(9),
+        border: Border.all(
+          color: borderColor,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment:
+        CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(
+                icon,
+                size: 15,
+                color: accent,
+              ),
+              const SizedBox(width: 5),
+              Text(
+                title,
+                style: const TextStyle(
+                  color: secondaryTextColor,
+                  fontSize: 11,
+                ),
+              ),
+              const Spacer(),
+              Text(
+                '$current / $max',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 11,
+                  fontWeight:
+                  FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          ClipRRect(
+            borderRadius:
+            BorderRadius.circular(4),
+            child: LinearProgressIndicator(
+              value: progress,
+              minHeight: 3,
+              backgroundColor:
+              const Color(0xFF292E38),
+              valueColor:
+              AlwaysStoppedAnimation<
+                  Color>(
+                accent,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ============================================================
+  // 카드 추가 버튼 - 압축 버전
+  // ============================================================
+
+  Widget _buildAddCardButtonCompact() {
+    return SizedBox(
+      width: double.infinity,
+      height: 38,
+      child: OutlinedButton.icon(
+        onPressed: addCardToDeck,
+        icon: const Icon(
+          Icons.add,
+          size: 17,
+        ),
+        label: const Text(
+          '카드 추가',
+          style: TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        style: OutlinedButton.styleFrom(
+          foregroundColor: Colors.white,
+          side: const BorderSide(
+            color: borderColor,
+          ),
+          backgroundColor: panelColor,
+          shape: RoundedRectangleBorder(
+            borderRadius:
+            BorderRadius.circular(10),
+          ),
+          padding: EdgeInsets.zero,
+        ),
+      ),
+    );
+  }
+
+  // 기존 함수도 유지
+  Widget _buildAddCardButton() {
+    return SizedBox(
+      width: double.infinity,
+      height: 46,
+      child: OutlinedButton.icon(
+        onPressed: addCardToDeck,
+        icon: const Icon(
+          Icons.add,
+          size: 19,
+        ),
+        label: const Text(
+          '카드 추가',
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        style: OutlinedButton.styleFrom(
+          foregroundColor: Colors.white,
+          side: const BorderSide(
+            color: borderColor,
+          ),
+          backgroundColor: panelColor,
+          shape: RoundedRectangleBorder(
+            borderRadius:
+            BorderRadius.circular(12),
+          ),
+        ),
+      ),
+    );
+  }
+
+  // ============================================================
+  // 부족 카드 안내 - 작은 버전
+  // ============================================================
+
+  Widget _buildShortageCompact(
+      int shortageCount,
+      ) {
+    final bool hasShortage =
+        shortageCount > 0;
+
+    final Color accent = hasShortage
+        ? Colors.redAccent
+        : Colors.greenAccent;
+
+    return Container(
+      width: double.infinity,
+      height: 30,
+      padding:
+      const EdgeInsets.symmetric(
+        horizontal: 9,
+      ),
+      decoration: BoxDecoration(
+        color: const Color(0xFF15181E),
+        borderRadius:
+        BorderRadius.circular(8),
+        border: Border.all(
+          color: hasShortage
+              ? Colors.red.withOpacity(0.28)
+              : Colors.green.withOpacity(
+            0.25,
+          ),
+        ),
+      ),
+      child: Row(
+        children: [
+          Icon(
+            hasShortage
+                ? Icons.warning_amber_rounded
+                : Icons.check_circle_outline,
+            size: 15,
+            color: accent,
+          ),
+          const SizedBox(width: 6),
+          Expanded(
+            child: Text(
+              hasShortage
+                  ? '$shortageCount장 부족합니다.'
+                  : '모든 카드를 보유하고 있습니다.',
+              style: TextStyle(
+                color: accent,
+                fontSize: 11,
+                fontWeight:
+                FontWeight.bold,
+              ),
+              maxLines: 1,
+              overflow:
+              TextOverflow.ellipsis,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ============================================================
+  // 기존 부족 카드 안내
+  // ============================================================
+
+  Widget _buildShortageBanner(
+      int shortageCount,
+      ) {
+    final bool hasShortage =
+        shortageCount > 0;
+
+    final Color accent = hasShortage
+        ? Colors.redAccent
+        : Colors.greenAccent;
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: panelColor,
+        borderRadius:
+        BorderRadius.circular(12),
+        border: Border.all(
+          color: hasShortage
+              ? Colors.red.withOpacity(0.35)
+              : Colors.green.withOpacity(
+            0.30,
+          ),
+        ),
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 34,
+            height: 34,
+            decoration: BoxDecoration(
+              color: accent.withOpacity(
+                0.10,
+              ),
+              borderRadius:
+              BorderRadius.circular(9),
+            ),
+            child: Icon(
+              hasShortage
+                  ? Icons
+                  .warning_amber_rounded
+                  : Icons
+                  .check_circle_outline,
+              size: 19,
+              color: accent,
+            ),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              hasShortage
+                  ? '$shortageCount장 부족합니다.'
+                  : '이 덱의 모든 카드를 보유하고 있습니다.',
+              style: TextStyle(
+                color: accent,
+                fontSize: 13,
+                fontWeight:
+                FontWeight.bold,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ============================================================
+  // 카드 필터 - 압축 버전
+  // ============================================================
+
+  Widget _buildFilterButtonCompact({
+    required String title,
+    required bool selected,
+    required VoidCallback onPressed,
+  }) {
+    return SizedBox(
+      height: 32,
+      child: OutlinedButton(
+        onPressed: onPressed,
+        style: OutlinedButton.styleFrom(
+          backgroundColor: selected
+              ? const Color(0xFF292E38)
+              : panelColor,
+          foregroundColor: Colors.white,
+          side: BorderSide(
+            color: selected
+                ? Colors.white24
+                : borderColor,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius:
+            BorderRadius.circular(8),
+          ),
+          padding:
+          const EdgeInsets.symmetric(
+            horizontal: 8,
+          ),
+        ),
+        child: Text(
+          title,
+          maxLines: 1,
+          overflow:
+          TextOverflow.ellipsis,
+          style: TextStyle(
+            fontSize: 11,
+            fontWeight: selected
+                ? FontWeight.bold
+                : FontWeight.normal,
+            color: selected
+                ? Colors.white
+                : secondaryTextColor,
+          ),
+        ),
+      ),
+    );
+  }
+
+  // ============================================================
+  // 기존 카드 필터
   // ============================================================
 
   Widget _buildFilterButton({
@@ -2212,28 +2350,555 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
     required VoidCallback onPressed,
   }) {
     return SizedBox(
-      height: 45,
+      height: 42,
       child: OutlinedButton(
         onPressed: onPressed,
         style: OutlinedButton.styleFrom(
-          backgroundColor:
-          selected
-              ? Colors.grey.shade200
-              : null,
+          backgroundColor: selected
+              ? const Color(0xFF292E38)
+              : panelColor,
+          foregroundColor: Colors.white,
           side: BorderSide(
             color: selected
-                ? Colors.black54
-                : Colors.grey.shade400,
+                ? Colors.white24
+                : borderColor,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius:
+            BorderRadius.circular(10),
+          ),
+          padding:
+          const EdgeInsets.symmetric(
+            horizontal: 10,
           ),
         ),
         child: Text(
           title,
+          maxLines: 1,
+          overflow:
+          TextOverflow.ellipsis,
           style: TextStyle(
-            fontWeight:
-            selected
+            fontSize: 12,
+            fontWeight: selected
                 ? FontWeight.bold
                 : FontWeight.normal,
-            color: Colors.black87,
+            color: selected
+                ? Colors.white
+                : secondaryTextColor,
+          ),
+        ),
+      ),
+    );
+  }
+
+  // ============================================================
+  // 카드 목록 아이템
+  // ============================================================
+
+  Widget _buildCardItem(
+      Map<String, dynamic> card,
+      ) {
+    final int need =
+        int.tryParse(
+          card['deck_count'].toString(),
+        ) ??
+            0;
+
+    final int owned =
+        int.tryParse(
+          card['owned_count'].toString(),
+        ) ??
+            0;
+
+    final int shortage =
+    need > owned
+        ? need - owned
+        : 0;
+
+    final type =
+    card['type'].toString();
+
+    final cardColor =
+    card['color'].toString();
+
+    final colors =
+    _getColors(cardColor);
+
+    final isLegend =
+        type == '전설';
+
+    final isRune =
+        type == '룬';
+
+    final isBattlefield =
+        cardColor == '무색';
+
+    final canIncrease =
+    canIncreaseCard(card);
+
+    return Container(
+      margin:
+      const EdgeInsets.only(
+        bottom: 5,
+      ),
+      decoration: BoxDecoration(
+        color: panelColor,
+        borderRadius:
+        BorderRadius.circular(10),
+        border: Border.all(
+          color: borderColor,
+        ),
+      ),
+      child: Padding(
+        padding:
+        const EdgeInsets.fromLTRB(
+          10,
+          7,
+          7,
+          7,
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 34,
+              height: 34,
+              decoration: BoxDecoration(
+                color:
+                const Color(0xFF15181E),
+                borderRadius:
+                BorderRadius.circular(
+                  8,
+                ),
+              ),
+              child: Center(
+                child: Row(
+                  mainAxisSize:
+                  MainAxisSize.min,
+                  children: colors
+                      .map(
+                        (color) =>
+                        Container(
+                          width: 6,
+                          height: 6,
+                          margin:
+                          const EdgeInsets
+                              .symmetric(
+                            horizontal: 1,
+                          ),
+                          decoration:
+                          BoxDecoration(
+                            color: color,
+                            shape:
+                            BoxShape.circle,
+                          ),
+                        ),
+                  )
+                      .toList(),
+                ),
+              ),
+            ),
+
+            const SizedBox(width: 9),
+
+            Expanded(
+              child: Column(
+                crossAxisAlignment:
+                CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Flexible(
+                        child: Text(
+                          card['name']
+                              .toString(),
+                          maxLines: 1,
+                          overflow:
+                          TextOverflow
+                              .ellipsis,
+                          style:
+                          const TextStyle(
+                            color:
+                            Colors.white,
+                            fontSize: 13,
+                            fontWeight:
+                            FontWeight.bold,
+                          ),
+                        ),
+                      ),
+
+                      if (isLegend)
+                        _buildTypeBadge(
+                          '전설',
+                        ),
+
+                      if (isRune)
+                        _buildTypeBadge(
+                          '룬',
+                        ),
+
+                      if (isBattlefield)
+                        _buildTypeBadge(
+                          '전장',
+                        ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 2),
+
+                  Row(
+                    children: [
+                      Text(
+                        card['number']
+                            .toString(),
+                        style:
+                        const TextStyle(
+                          color:
+                          secondaryTextColor,
+                          fontSize: 10,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 6,
+                      ),
+                      Container(
+                        width: 3,
+                        height: 3,
+                        decoration:
+                        const BoxDecoration(
+                          color:
+                          secondaryTextColor,
+                          shape:
+                          BoxShape.circle,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 6,
+                      ),
+                      Text(
+                        card['series']
+                            .toString(),
+                        style:
+                        const TextStyle(
+                          color:
+                          secondaryTextColor,
+                          fontSize: 10,
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 2),
+
+                  Row(
+                    children: [
+                      Text(
+                        '필요 $need장',
+                        style:
+                        const TextStyle(
+                          color:
+                          secondaryTextColor,
+                          fontSize: 10,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 7,
+                      ),
+                      Text(
+                        '보유 $owned장',
+                        style:
+                        const TextStyle(
+                          color:
+                          secondaryTextColor,
+                          fontSize: 10,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 7,
+                      ),
+                      Text(
+                        shortage > 0
+                            ? '$shortage장 부족'
+                            : '보유',
+                        style: TextStyle(
+                          color: shortage > 0
+                              ? Colors.redAccent
+                              : Colors.greenAccent,
+                          fontSize: 10,
+                          fontWeight:
+                          FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+
+            const SizedBox(width: 3),
+
+            Container(
+              height: 34,
+              decoration: BoxDecoration(
+                color:
+                const Color(0xFF15181E),
+                borderRadius:
+                BorderRadius.circular(
+                  8,
+                ),
+                border: Border.all(
+                  color: borderColor,
+                ),
+              ),
+              child: Row(
+                mainAxisSize:
+                MainAxisSize.min,
+                children: [
+                  _buildQuantityButton(
+                    icon: Icons.remove,
+                    enabled: need > 0,
+                    onPressed: need > 0
+                        ? () {
+                      setState(() {
+                        card[
+                        'deck_count'] =
+                            need - 1;
+                      });
+                    }
+                        : null,
+                  ),
+
+                  SizedBox(
+                    width: 26,
+                    child: Center(
+                      child: Text(
+                        '$need',
+                        style:
+                        const TextStyle(
+                          color:
+                          Colors.white,
+                          fontSize: 13,
+                          fontWeight:
+                          FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  _buildQuantityButton(
+                    icon: Icons.add,
+                    enabled:
+                    canIncrease,
+                    onPressed:
+                    canIncrease
+                        ? () {
+                      setState(() {
+                        card[
+                        'deck_count'] =
+                            need + 1;
+                      });
+                    }
+                        : null,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTypeBadge(
+      String text,
+      ) {
+    return Container(
+      margin:
+      const EdgeInsets.only(
+        left: 6,
+      ),
+      padding:
+      const EdgeInsets.symmetric(
+        horizontal: 5,
+        vertical: 1,
+      ),
+      decoration: BoxDecoration(
+        color: const Color(0xFF292E38),
+        borderRadius:
+        BorderRadius.circular(4),
+      ),
+      child: Text(
+        text,
+        style: const TextStyle(
+          color: secondaryTextColor,
+          fontSize: 8,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildQuantityButton({
+    required IconData icon,
+    required bool enabled,
+    required VoidCallback? onPressed,
+  }) {
+    return SizedBox(
+      width: 28,
+      height: 32,
+      child: IconButton(
+        onPressed: onPressed,
+        padding: EdgeInsets.zero,
+        iconSize: 16,
+        icon: Icon(
+          icon,
+          color: enabled
+              ? Colors.white
+              : const Color(0xFF555B66),
+        ),
+      ),
+    );
+  }
+
+  // ============================================================
+  // 부족 카드 없음
+  // ============================================================
+
+  Widget _buildNoShortage() {
+    return Center(
+      child: Column(
+        mainAxisAlignment:
+        MainAxisAlignment.center,
+        children: [
+          Container(
+            width: 64,
+            height: 64,
+            decoration: BoxDecoration(
+              color: panelColor,
+              borderRadius:
+              BorderRadius.circular(18),
+              border: Border.all(
+                color: borderColor,
+              ),
+            ),
+            child: const Icon(
+              Icons.check_circle_outline,
+              size: 30,
+              color: Colors.greenAccent,
+            ),
+          ),
+          const SizedBox(height: 14),
+          const Text(
+            '부족한 카드가 없습니다.',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ============================================================
+  // 저장 버튼 - 압축 버전
+  // ============================================================
+
+  Widget _buildSaveButtonCompact() {
+    return SizedBox(
+      width: double.infinity,
+      height: 44,
+      child: FilledButton.icon(
+        onPressed:
+        isSaving
+            ? null
+            : saveDeckChanges,
+        style: FilledButton.styleFrom(
+          backgroundColor:
+          const Color(0xFFE8EAF0),
+          foregroundColor:
+          const Color(0xFF111318),
+          disabledBackgroundColor:
+          const Color(0xFF292E38),
+          disabledForegroundColor:
+          secondaryTextColor,
+          shape:
+          RoundedRectangleBorder(
+            borderRadius:
+            BorderRadius.circular(10),
+          ),
+        ),
+        icon: isSaving
+            ? const SizedBox(
+          width: 17,
+          height: 17,
+          child:
+          CircularProgressIndicator(
+            strokeWidth: 2,
+          ),
+        )
+            : const Icon(
+          Icons.save_outlined,
+          size: 18,
+        ),
+        label: Text(
+          isSaving
+              ? '저장 중...'
+              : '덱 수정 저장',
+          style: const TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
+
+  // 기존 저장 버튼
+  Widget _buildSaveButton() {
+    return SizedBox(
+      width: double.infinity,
+      height: 50,
+      child: FilledButton.icon(
+        onPressed:
+        isSaving
+            ? null
+            : saveDeckChanges,
+        style: FilledButton.styleFrom(
+          backgroundColor:
+          const Color(0xFFE8EAF0),
+          foregroundColor:
+          const Color(0xFF111318),
+          disabledBackgroundColor:
+          const Color(0xFF292E38),
+          disabledForegroundColor:
+          secondaryTextColor,
+          shape:
+          RoundedRectangleBorder(
+            borderRadius:
+            BorderRadius.circular(12),
+          ),
+        ),
+        icon: isSaving
+            ? const SizedBox(
+          width: 19,
+          height: 19,
+          child:
+          CircularProgressIndicator(
+            strokeWidth: 2,
+          ),
+        )
+            : const Icon(
+          Icons.save_outlined,
+          size: 19,
+        ),
+        label: Text(
+          isSaving
+              ? '저장 중...'
+              : '덱 수정 저장',
+          style: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),
@@ -2259,15 +2924,26 @@ class _DeckNameDialog extends StatefulWidget {
 
 class _DeckNameDialogState
     extends State<_DeckNameDialog> {
-  late final TextEditingController controller;
+  late final TextEditingController
+  controller;
+
+  static const Color panelColor =
+  Color(0xFF1B1F27);
+
+  static const Color borderColor =
+  Color(0xFF292E38);
+
+  static const Color secondaryTextColor =
+  Color(0xFF9298A5);
 
   @override
   void initState() {
     super.initState();
 
-    controller = TextEditingController(
-      text: widget.initialName,
-    );
+    controller =
+        TextEditingController(
+          text: widget.initialName,
+        );
   }
 
   @override
@@ -2280,13 +2956,53 @@ class _DeckNameDialogState
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('덱 이름 수정'),
+      backgroundColor: panelColor,
+      shape: RoundedRectangleBorder(
+        borderRadius:
+        BorderRadius.circular(16),
+        side: const BorderSide(
+          color: borderColor,
+        ),
+      ),
+      title: const Text(
+        '덱 이름 수정',
+        style: TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
       content: TextField(
         controller: controller,
         autofocus: true,
-        decoration: const InputDecoration(
+        style: const TextStyle(
+          color: Colors.white,
+        ),
+        decoration: InputDecoration(
           hintText: '덱 이름을 입력하세요',
-          border: OutlineInputBorder(),
+          hintStyle: const TextStyle(
+            color: secondaryTextColor,
+          ),
+          filled: true,
+          fillColor:
+          const Color(0xFF15181E),
+          enabledBorder:
+          OutlineInputBorder(
+            borderRadius:
+            BorderRadius.circular(10),
+            borderSide:
+            const BorderSide(
+              color: borderColor,
+            ),
+          ),
+          focusedBorder:
+          OutlineInputBorder(
+            borderRadius:
+            BorderRadius.circular(10),
+            borderSide:
+            const BorderSide(
+              color: Colors.white24,
+            ),
+          ),
         ),
       ),
       actions: [
@@ -2294,7 +3010,12 @@ class _DeckNameDialogState
           onPressed: () {
             Navigator.pop(context);
           },
-          child: const Text('취소'),
+          child: const Text(
+            '취소',
+            style: TextStyle(
+              color: secondaryTextColor,
+            ),
+          ),
         ),
         FilledButton(
           onPressed: () {
@@ -2310,6 +3031,12 @@ class _DeckNameDialogState
               name,
             );
           },
+          style: FilledButton.styleFrom(
+            backgroundColor:
+            const Color(0xFFE8EAF0),
+            foregroundColor:
+            const Color(0xFF111318),
+          ),
           child: const Text('저장'),
         ),
       ],
