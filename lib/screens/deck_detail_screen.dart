@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -61,6 +63,7 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
           cards.series,
           cards.type,
           cards.color,
+          cards.rarity,
           cards.owned_count,
           deck_cards.id AS deck_card_id,
           deck_cards.count AS deck_count
@@ -84,6 +87,7 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
             'series': card['series'],
             'type': card['type'],
             'color': card['color'],
+            'rarity': card['rarity'] ?? '',
             'owned_count': card['owned_count'],
             'deck_card_id': card['deck_card_id'],
             'deck_count': card['deck_count'] ?? 0,
@@ -1430,6 +1434,40 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
   }
 
   // ============================================================
+  // 카드 등급별 도형
+  // ============================================================
+
+  Color _getRarityShapeColor(String rarity) {
+    switch (rarity) {
+      case '커먼':
+        return const Color(0xFF9AA0AA); // 회색
+      case '언커먼':
+        return const Color(0xFF64A8FF); // 파랑
+      case '레어':
+        return const Color(0xFFBB86FC); // 보라
+      case '에픽':
+        return const Color(0xFFFFC107); // 금색
+      default:
+        return Colors.transparent;
+    }
+  }
+
+  Widget _buildRarityShape(String rarity) {
+    if (!['커먼', '언커먼', '레어', '에픽']
+        .contains(rarity)) {
+      return const SizedBox.shrink();
+    }
+
+    return CustomPaint(
+      size: const Size(13, 13),
+      painter: _RarityShapePainter(
+        rarity: rarity,
+        color: _getRarityShapeColor(rarity),
+      ),
+    );
+  }
+
+  // ============================================================
   // 색상
   // ============================================================
 
@@ -2498,29 +2536,40 @@ class _DeckDetailScreenState extends State<DeckDetailScreen> {
                 children: [
                   Row(
                     children: [
+                      if ([
+                        '커먼',
+                        '언커먼',
+                        '레어',
+                        '에픽',
+                      ].contains(
+                        card['rarity']?.toString(),
+                      )) ...[
+                        Padding(
+                          padding:
+                          const EdgeInsets.only(
+                            right: 5,
+                          ),
+                          child: _buildRarityShape(
+                            card['rarity'].toString(),
+                          ),
+                        ),
+                      ],
+
                       Flexible(
                         child: Text(
-                          card['name']
-                              .toString(),
+                          card['name'].toString(),
                           maxLines: 1,
-                          overflow:
-                          TextOverflow
-                              .ellipsis,
-                          style:
-                          const TextStyle(
-                            color:
-                            Colors.white,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: Colors.white,
                             fontSize: 13,
-                            fontWeight:
-                            FontWeight.bold,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
 
-                      // 모든 카드 타입 표시
-                      _buildTypeBadge(
-                        displayType,
-                      ),
+                      // 기존 카드 타입 표시 유지
+                      _buildTypeBadge(displayType),
                     ],
                   ),
                   const SizedBox(height: 2),
@@ -2915,6 +2964,8 @@ class _DeckNameDialogState
   static const Color secondaryTextColor =
   Color(0xFF9298A5);
 
+
+
   @override
   void initState() {
     super.initState();
@@ -2931,6 +2982,7 @@ class _DeckNameDialogState
 
     super.dispose();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -3030,5 +3082,91 @@ class _DeckNameDialogState
         ),
       ],
     );
+  }
+
+}
+
+class _RarityShapePainter extends CustomPainter {
+  final String rarity;
+  final Color color;
+
+  _RarityShapePainter({
+    required this.rarity,
+    required this.color,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = color
+      ..style = PaintingStyle.fill
+      ..isAntiAlias = true;
+
+    final center = Offset(
+      size.width / 2,
+      size.height / 2,
+    );
+
+    final radius = size.shortestSide * 0.46;
+
+    switch (rarity) {
+      case '커먼':
+        canvas.drawCircle(center, radius, paint);
+        break;
+
+      case '언커먼':
+        final path = Path()
+          ..moveTo(center.dx, center.dy - radius)
+          ..lineTo(
+            center.dx + radius,
+            center.dy + radius * 0.8,
+          )
+          ..lineTo(
+            center.dx - radius,
+            center.dy + radius * 0.8,
+          )
+          ..close();
+
+        canvas.drawPath(path, paint);
+        break;
+
+      case '레어':
+        final path = Path()
+          ..moveTo(center.dx, center.dy - radius)
+          ..lineTo(center.dx + radius, center.dy)
+          ..lineTo(center.dx, center.dy + radius)
+          ..lineTo(center.dx - radius, center.dy)
+          ..close();
+
+        canvas.drawPath(path, paint);
+        break;
+
+      case '에픽':
+        final path = Path();
+
+        for (int i = 0; i < 5; i++) {
+          final angle = -math.pi / 2 + (2 * math.pi * i / 5);
+          final point = Offset(
+            center.dx + radius * math.cos(angle),
+            center.dy + radius * math.sin(angle),
+          );
+
+          if (i == 0) {
+            path.moveTo(point.dx, point.dy);
+          } else {
+            path.lineTo(point.dx, point.dy);
+          }
+        }
+
+        path.close();
+        canvas.drawPath(path, paint);
+        break;
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant _RarityShapePainter oldDelegate) {
+    return oldDelegate.rarity != rarity ||
+        oldDelegate.color != color;
   }
 }

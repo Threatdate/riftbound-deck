@@ -9,6 +9,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '분노',
+    'rarity': '커먼',
   },
   {
     'name': '뻔뻔한 해적',
@@ -16,6 +17,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '분노',
+    'rarity': '커먼',
   },
   {
     'name': '화학공학 집행자',
@@ -23,6 +25,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '분노',
+    'rarity': '커먼',
   },
   {
     'name': '쪼개기',
@@ -30,6 +33,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '분노',
+    'rarity': '커먼',
   },
   {
     'name': '붕괴',
@@ -37,6 +41,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '분노',
+    'rarity': '커먼',
   },
   {
     'name': '와작와작 뻥',
@@ -44,6 +49,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '분노',
+    'rarity': '커먼',
   },
   {
     'name': '분노 룬',
@@ -51,6 +57,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '룬',
     'color': '분노',
+    'rarity': '커먼',
   },
   {
     'name': '신난다!',
@@ -58,6 +65,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '분노',
+    'rarity': '커먼',
   },
   {
     'name': '마법공학 광선',
@@ -65,6 +73,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '분노',
+    'rarity': '커먼',
   },
   {
     'name': '군단 후위병',
@@ -72,6 +81,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '분노',
+    'rarity': '커먼',
   },
   {
     'name': '용암 이무기',
@@ -79,6 +89,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '분노',
+    'rarity': '커먼',
   },
   {
     'name': '녹서스의 기대주',
@@ -86,6 +97,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '분노',
+    'rarity': '커먼',
   },
   {
     'name': '뾰로통한 포로',
@@ -93,6 +105,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '분노',
+    'rarity': '커먼',
   },
   {
     'name': '천공 분열',
@@ -100,6 +113,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '분노',
+    'rarity': '커먼',
   },
   {
     'name': '파론 대위',
@@ -107,6 +121,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '분노',
+    'rarity': '언커먼',
   },
   {
     'name': '위험한 듀오',
@@ -114,6 +129,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '분노',
+    'rarity': '언커먼',
   },
   {
     'name': '강철 쇠뇌',
@@ -121,6 +137,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '도구',
     'color': '분노',
+    'rarity': '언커먼',
   },
   {
     'name': '녹서스 파괴 공작원',
@@ -128,6 +145,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '분노',
+    'rarity': '언커먼',
   },
   {
     'name': '성난 혼령',
@@ -135,6 +153,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '분노',
+    'rarity': '언커먼',
   },
   {
     'name': '고철장 챔피언',
@@ -142,6 +161,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '분노',
+    'rarity': '언커먼',
   },
   {
     'name': '태양 원판',
@@ -149,6 +169,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '도구',
     'color': '분노',
+    'rarity': '언커먼',
   },
   {
     'name': '발열 광선',
@@ -156,6 +177,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '분노',
+    'rarity': '언커먼',
   },
   {
     'name': '무허가 무기고',
@@ -163,6 +185,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '도구',
     'color': '분노',
+    'rarity': '언커먼',
   },
   {
     'name': '공허추적자',
@@ -170,6 +193,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '분노',
+    'rarity': '언커먼',
   },
   {
     'name': '무분별한 분노',
@@ -177,6 +201,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '분노',
+    'rarity': '레어',
   },
   {
     'name': '브린히르 썬더송',
@@ -184,6 +209,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '분노',
+    'rarity': '레어',
   },
   {
     'name': '다리우스, 트리파르',
@@ -191,6 +217,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '분노',
+    'rarity': '레어',
   },
   {
     'name': '드레이븐, 과시',
@@ -198,6 +225,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '분노',
+    'rarity': '레어',
   },
   {
     'name': '유성',
@@ -205,6 +233,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '분노',
+    'rarity': '레어',
   },
   {
     'name': '징크스, 폭파광',
@@ -212,6 +241,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '분노',
+    'rarity': '레어',
   },
   {
     'name': '성난 화염용',
@@ -219,6 +249,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '분노',
+    'rarity': '레어',
   },
   {
     'name': '레이븐본 고서',
@@ -226,6 +257,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '도구',
     'color': '분노',
+    'rarity': '레어',
   },
   {
     'name': '갈취',
@@ -233,6 +265,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '분노',
+    'rarity': '레어',
   },
   {
     'name': '트린다미어, 야만전사',
@@ -240,6 +273,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '분노',
+    'rarity': '레어',
   },
   {
     'name': '베인, 사냥꾼',
@@ -247,6 +281,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '분노',
+    'rarity': '레어',
   },
   {
     'name': '바이, 파괴',
@@ -254,6 +289,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '분노',
+    'rarity': '레어',
   },
   {
     'name': '불멸의 불사조',
@@ -261,6 +297,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '분노',
+    'rarity': '에픽',
   },
   {
     'name': '지옥불 카드레그린',
@@ -268,6 +305,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '분노',
+    'rarity': '에픽',
   },
   {
     'name': '카이사, 생존자',
@@ -275,6 +313,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '분노',
+    'rarity': '에픽',
   },
   {
     'name': '분노의 문장',
@@ -282,6 +321,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '도구',
     'color': '분노',
+    'rarity': '에픽',
   },
   {
     'name': '볼리베어, 격노',
@@ -289,6 +329,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '분노',
+    'rarity': '에픽',
   },
 
   // ============================================================
@@ -301,6 +342,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '룬',
     'color': '평정',
+    'rarity': '커먼',
   },
   {
     'name': '매혹',
@@ -308,6 +350,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '평정',
+    'rarity': '커먼',
   },
   {
     'name': '시계태엽 지킴이',
@@ -315,6 +358,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '평정',
+    'rarity': '커먼',
   },
   {
     'name': '반항',
@@ -322,6 +366,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '평정',
+    'rarity': '커먼',
   },
   {
     'name': '준비 태세',
@@ -329,6 +374,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '평정',
+    'rarity': '커먼',
   },
   {
     'name': '중심 잡기',
@@ -336,6 +382,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '평정',
+    'rarity': '커먼',
   },
   {
     'name': '명상',
@@ -343,6 +390,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '평정',
+    'rarity': '커먼',
   },
   {
     'name': '장난꾸러기 유령',
@@ -350,6 +398,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '평정',
+    'rarity': '커먼',
   },
   {
     'name': '룬 감옥',
@@ -357,6 +406,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '평정',
+    'rarity': '커먼',
   },
   {
     'name': '솔라리 방패지기',
@@ -364,6 +414,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '평정',
+    'rarity': '커먼',
   },
   {
     'name': '불굴의 포로',
@@ -371,6 +422,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '평정',
+    'rarity': '커먼',
   },
   {
     'name': '단결된 의지',
@@ -378,6 +430,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '평정',
+    'rarity': '커먼',
   },
   {
     'name': '햇빛 수호자',
@@ -385,6 +438,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '평정',
+    'rarity': '커먼',
   },
   {
     'name': '물의 주인',
@@ -392,6 +446,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '평정',
+    'rarity': '커먼',
   },
   {
     'name': '적응형 기기',
@@ -399,6 +454,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '평정',
+    'rarity': '언커먼',
   },
   {
     'name': '막기',
@@ -406,6 +462,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '평정',
+    'rarity': '언커먼',
   },
   {
     'name': '규율',
@@ -413,6 +470,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '평정',
+    'rarity': '언커먼',
   },
   {
     'name': '월식의 전령',
@@ -420,6 +478,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '평정',
+    'rarity': '언커먼',
   },
   {
     'name': '예지의 가면',
@@ -427,6 +486,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '도구',
     'color': '평정',
+    'rarity': '언커먼',
   },
   {
     'name': '포로치기',
@@ -434,6 +494,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '평정',
+    'rarity': '언커먼',
   },
   {
     'name': '지원',
@@ -441,6 +502,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '평정',
+    'rarity': '언커먼',
   },
   {
     'name': '의지의 결계',
@@ -448,6 +510,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '도구',
     'color': '평정',
+    'rarity': '언커먼',
   },
   {
     'name': '바람 장막',
@@ -455,6 +518,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '평정',
+    'rarity': '언커먼',
   },
   {
     'name': '오랜 연륜의 장로',
@@ -462,6 +526,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '평정',
+    'rarity': '언커먼',
   },
   {
     'name': '아리, 황홀',
@@ -469,6 +534,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '평정',
+    'rarity': '레어',
   },
   {
     'name': '블리츠크랭크, 무감정',
@@ -476,6 +542,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '평정',
+    'rarity': '레어',
   },
   {
     'name': '케이틀린, 순찰',
@@ -483,6 +550,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '평정',
+    'rarity': '레어',
   },
   {
     'name': '최후의 저항',
@@ -490,6 +558,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '평정',
+    'rarity': '레어',
   },
   {
     'name': '마력척결관 간수',
@@ -497,6 +566,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '평정',
+    'rarity': '레어',
   },
   {
     'name': '축제 경품',
@@ -504,6 +574,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '평정',
+    'rarity': '레어',
   },
   {
     'name': '솔라리 성지',
@@ -511,6 +582,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '도구',
     'color': '평정',
+    'rarity': '레어',
   },
   {
     'name': '소나, 조화',
@@ -518,6 +590,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '평정',
+    'rarity': '레어',
   },
   {
     'name': '타릭, 수호자',
@@ -525,6 +598,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '평정',
+    'rarity': '레어',
   },
   {
     'name': '맛있는 요정단',
@@ -532,6 +606,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '평정',
+    'rarity': '레어',
   },
   {
     'name': '야스오, 회한',
@@ -539,6 +614,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '평정',
+    'rarity': '레어',
   },
   {
     'name': '존야의 모래시계',
@@ -546,6 +622,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '도구',
     'color': '평정',
+    'rarity': '레어',
   },
   {
     'name': '리 신, 고행',
@@ -553,6 +630,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '평정',
+    'rarity': '에픽',
   },
   {
     'name': '레오나, 신봉자',
@@ -560,6 +638,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '평정',
+    'rarity': '에픽',
   },
   {
     'name': '신비한 전환',
@@ -567,6 +646,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '평정',
+    'rarity': '에픽',
   },
   {
     'name': '집중의 문장',
@@ -574,6 +654,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '도구',
     'color': '평정',
+    'rarity': '에픽',
   },
   {
     'name': '하얀불꽃 수호자',
@@ -581,6 +662,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '평정',
+    'rarity': '에픽',
   },
 
   // ============================================================
@@ -593,6 +675,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '정신',
+    'rarity': '커먼',
   },
   {
     'name': '열정적인 수습생',
@@ -600,6 +683,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '정신',
+    'rarity': '커먼',
   },
   {
     'name': '혜성 낙하',
@@ -607,6 +691,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '정신',
+    'rarity': '커먼',
   },
   {
     'name': '보석 거신',
@@ -614,6 +699,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '정신',
+    'rarity': '커먼',
   },
   {
     'name': '설교하는 요들',
@@ -621,6 +707,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '정신',
+    'rarity': '커먼',
   },
   {
     'name': '메가 메크',
@@ -628,6 +715,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '정신',
+    'rarity': '커먼',
   },
   {
     'name': '정신 룬',
@@ -635,6 +723,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '룬',
     'color': '정신',
+    'rarity': '커먼',
   },
   {
     'name': '후회의 구슬',
@@ -642,6 +731,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '도구',
     'color': '정신',
+    'rarity': '커먼',
   },
   {
     'name': '정비 팀',
@@ -649,6 +739,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '정신',
+    'rarity': '커먼',
   },
   {
     'name': '역조 렉스',
@@ -656,6 +747,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '정신',
+    'rarity': '커먼',
   },
   {
     'name': '연막탄',
@@ -663,6 +755,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '정신',
+    'rarity': '커먼',
   },
   {
     'name': '정령 부름',
@@ -670,6 +763,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '정신',
+    'rarity': '커먼',
   },
   {
     'name': '마비',
@@ -677,6 +771,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '정신',
+    'rarity': '커먼',
   },
   {
     'name': '감시하는 보초',
@@ -684,6 +779,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '정신',
+    'rarity': '커먼',
   },
   {
     'name': '솔방울탄 요정',
@@ -691,6 +787,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '정신',
+    'rarity': '언커먼',
   },
   {
     'name': '에너지 전도체',
@@ -698,6 +795,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '도구',
     'color': '정신',
+    'rarity': '언커먼',
   },
   {
     'name': '쓰레기 수집기',
@@ -705,6 +803,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '도구',
     'color': '정신',
+    'rarity': '언커먼',
   },
   {
     'name': '보석 공예 예언자',
@@ -712,6 +811,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '정신',
+    'rarity': '언커먼',
   },
   {
     'name': '버섯 주머니',
@@ -719,6 +819,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '도구',
     'color': '정신',
+    'rarity': '언커먼',
   },
   {
     'name': '차원문 구출',
@@ -726,6 +827,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '정신',
+    'rarity': '언커먼',
   },
   {
     'name': '레이븐블룸 학생',
@@ -733,6 +835,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '정신',
+    'rarity': '언커먼',
   },
   {
     'name': '후퇴',
@@ -740,6 +843,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '정신',
+    'rarity': '언커먼',
   },
   {
     'name': '특이점',
@@ -747,6 +851,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '정신',
+    'rarity': '언커먼',
   },
   {
     'name': '정령 어머니',
@@ -754,6 +859,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '정신',
+    'rarity': '언커먼',
   },
   {
     'name': '열정 대원 에이바',
@@ -761,6 +867,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '정신',
+    'rarity': '레어',
   },
   {
     'name': '수렴 변이',
@@ -768,6 +875,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '정신',
+    'rarity': '레어',
   },
   {
     'name': '문도 박사, 전문가',
@@ -775,6 +883,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '정신',
+    'rarity': '레어',
   },
   {
     'name': '에코, 반복',
@@ -782,6 +891,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '정신',
+    'rarity': '레어',
   },
   {
     'name': '하이머딩거, 발명가',
@@ -789,6 +899,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '정신',
+    'rarity': '레어',
   },
   {
     'name': '카이사, 진화',
@@ -796,6 +907,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '정신',
+    'rarity': '레어',
   },
   {
     'name': '말자하, 광신도',
@@ -803,6 +915,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '정신',
+    'rarity': '레어',
   },
   {
     'name': '진보의 날',
@@ -810,6 +923,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '정신',
+    'rarity': '레어',
   },
   {
     'name': '유망한 미래',
@@ -817,6 +931,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '정신',
+    'rarity': '레어',
   },
   {
     'name': '꼬리 천 개 주시자',
@@ -824,6 +939,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '정신',
+    'rarity': '레어',
   },
   {
     'name': '빅토르, 혁신가',
@@ -831,6 +947,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '정신',
+    'rarity': '레어',
   },
   {
     'name': '메아리의 망령',
@@ -838,6 +955,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '정신',
+    'rarity': '레어',
   },
   {
     'name': '아리, 호기심',
@@ -845,6 +963,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '정신',
+    'rarity': '에픽',
   },
   {
     'name': '통찰의 문장',
@@ -852,6 +971,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '도구',
     'color': '정신',
+    'rarity': '에픽',
   },
   {
     'name': '티모, 전략가',
@@ -859,6 +979,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '정신',
+    'rarity': '에픽',
   },
   {
     'name': '시간 왜곡',
@@ -866,6 +987,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '정신',
+    'rarity': '에픽',
   },
   {
     'name': '통제되지 않은 힘',
@@ -873,6 +995,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '정신',
+    'rarity': '에픽',
   },
 
   // ============================================================
@@ -885,6 +1008,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '도구',
     'color': '신체',
+    'rarity': '커먼',
   },
   {
     'name': '빌지워터 불량배',
@@ -892,6 +1016,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '신체',
+    'rarity': '커먼',
   },
   {
     'name': '신체 룬',
@@ -899,6 +1024,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '룬',
     'color': '신체',
+    'rarity': '커먼',
   },
   {
     'name': '포탄 세례',
@@ -906,6 +1032,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '신체',
+    'rarity': '커먼',
   },
   {
     'name': '도전',
@@ -913,6 +1040,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '신체',
+    'rarity': '커먼',
   },
   {
     'name': '정면 승부',
@@ -920,6 +1048,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '신체',
+    'rarity': '커먼',
   },
   {
     'name': '명사수 해적',
@@ -927,6 +1056,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '신체',
+    'rarity': '커먼',
   },
   {
     'name': '모래 언덕 드래곤',
@@ -934,6 +1064,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '신체',
+    'rarity': '커먼',
   },
   {
     'name': '일등항해사',
@@ -941,6 +1072,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '신체',
+    'rarity': '커먼',
   },
   {
     'name': '칼날 돌풍',
@@ -948,6 +1080,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '신체',
+    'rarity': '커먼',
   },
   {
     'name': '동원',
@@ -955,6 +1088,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '신체',
+    'rarity': '커먼',
   },
   {
     'name': '새끼 파카아',
@@ -962,6 +1096,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '신체',
+    'rarity': '커먼',
   },
   {
     'name': '투기장 신참',
@@ -969,6 +1104,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '신체',
+    'rarity': '커먼',
   },
   {
     'name': '폭풍발톱 어사인',
@@ -976,6 +1112,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '신체',
+    'rarity': '커먼',
   },
   {
     'name': '억겁의 카탈리스트',
@@ -983,6 +1120,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '신체',
+    'rarity': '언커먼',
   },
   {
     'name': '클라우드필드의 시트리아',
@@ -990,6 +1128,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '신체',
+    'rarity': '언커먼',
   },
   {
     'name': '비늘의 전령',
@@ -997,6 +1136,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '신체',
+    'rarity': '언커먼',
   },
   {
     'name': '킨코우 수도승',
@@ -1004,6 +1144,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '신체',
+    'rarity': '언커먼',
   },
   {
     'name': '대지의 드래곤',
@@ -1011,6 +1152,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '신체',
+    'rarity': '언커먼',
   },
   {
     'name': '해적의 안식처',
@@ -1018,6 +1160,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '도구',
     'color': '신체',
+    'rarity': '언커먼',
   },
   {
     'name': '전리품',
@@ -1025,6 +1168,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '신체',
+    'rarity': '언커먼',
   },
   {
     'name': '물러서지 않는 영혼',
@@ -1032,6 +1176,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '신체',
+    'rarity': '언커먼',
   },
   {
     'name': '쿵쾅',
@@ -1039,6 +1184,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '신체',
+    'rarity': '언커먼',
   },
   {
     'name': '거친발톱 주술사',
@@ -1046,6 +1192,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '신체',
+    'rarity': '언커먼',
   },
   {
     'name': '애니비아, 원시',
@@ -1053,6 +1200,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '신체',
+    'rarity': '레어',
   },
   {
     'name': '육식성 덩굴',
@@ -1060,6 +1208,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '신체',
+    'rarity': '레어',
   },
   {
     'name': '크라켄 사냥꾼',
@@ -1067,6 +1216,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '신체',
+    'rarity': '레어',
   },
   {
     'name': '리 신, 집중',
@@ -1074,6 +1224,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '신체',
+    'rarity': '레어',
   },
   {
     'name': '안개폭포',
@@ -1081,6 +1232,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '도구',
     'color': '신체',
+    'rarity': '레어',
   },
   {
     'name': '대담한 작전',
@@ -1088,6 +1240,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '신체',
+    'rarity': '레어',
   },
   {
     'name': '원시의 힘',
@@ -1095,6 +1248,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '신체',
+    'rarity': '레어',
   },
   {
     'name': '키아나, 승리자',
@@ -1102,6 +1256,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '신체',
+    'rarity': '레어',
   },
   {
     'name': '파괴 공작',
@@ -1109,6 +1264,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '신체',
+    'rarity': '레어',
   },
   {
     'name': '우디르, 야인',
@@ -1116,6 +1272,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '신체',
+    'rarity': '레어',
   },
   {
     'name': '볼리베어, 위압',
@@ -1123,6 +1280,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '신체',
+    'rarity': '레어',
   },
   {
     'name': '워윅, 사냥꾼',
@@ -1130,6 +1288,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '신체',
+    'rarity': '레어',
   },
   {
     'name': '눈부신 오로라',
@@ -1137,6 +1296,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '도구',
     'color': '신체',
+    'rarity': '에픽',
   },
   {
     'name': '죽음꽃 포식자',
@@ -1144,6 +1304,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '신체',
+    'rarity': '에픽',
   },
   {
     'name': '미스 포츈, 선장',
@@ -1151,6 +1312,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '신체',
+    'rarity': '에픽',
   },
   {
     'name': '힘의 문장',
@@ -1158,6 +1320,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '도구',
     'color': '신체',
+    'rarity': '에픽',
   },
   {
     'name': '세트, 싸움꾼',
@@ -1165,6 +1328,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '신체',
+    'rarity': '에픽',
   },
 
   // ============================================================
@@ -1177,6 +1341,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '혼돈',
+    'rarity': '커먼',
   },
   {
     'name': '혼돈 룬',
@@ -1184,6 +1349,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '룬',
     'color': '혼돈',
+    'rarity': '커먼',
   },
   {
     'name': '불꽃 수도승',
@@ -1191,6 +1357,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '혼돈',
+    'rarity': '커먼',
   },
   {
     'name': '싸우거나 도망치거나',
@@ -1198,6 +1365,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '혼돈',
+    'rarity': '커먼',
   },
   {
     'name': '돌풍',
@@ -1205,6 +1373,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '혼돈',
+    'rarity': '커먼',
   },
   {
     'name': '소름끼치는 귀환',
@@ -1212,6 +1381,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '혼돈',
+    'rarity': '커먼',
   },
   {
     'name': '신비한 포로',
@@ -1219,6 +1389,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '혼돈',
+    'rarity': '커먼',
   },
   {
     'name': '처벌',
@@ -1226,6 +1397,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '혼돈',
+    'rarity': '커먼',
   },
   {
     'name': '바람을 타고',
@@ -1233,6 +1405,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '혼돈',
+    'rarity': '커먼',
   },
   {
     'name': '사막 정찰꾼',
@@ -1240,6 +1413,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '혼돈',
+    'rarity': '커먼',
   },
   {
     'name': '조선소 잠복꾼',
@@ -1247,6 +1421,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '혼돈',
+    'rarity': '커먼',
   },
   {
     'name': '교활한 갑판원',
@@ -1254,6 +1429,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '혼돈',
+    'rarity': '커먼',
   },
   {
     'name': '은밀한 추적자',
@@ -1261,6 +1437,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '혼돈',
+    'rarity': '커먼',
   },
   {
     'name': '잠입 요원',
@@ -1268,6 +1445,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '혼돈',
+    'rarity': '커먼',
   },
   {
     'name': '허용 손실',
@@ -1275,6 +1453,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '혼돈',
+    'rarity': '언커먼',
   },
   {
     'name': '바래지는 기억',
@@ -1282,6 +1461,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '혼돈',
+    'rarity': '언커먼',
   },
   {
     'name': '불가사의한 꾸러미',
@@ -1289,6 +1469,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '도구',
     'color': '혼돈',
+    'rarity': '언커먼',
   },
   {
     'name': '고철 더미',
@@ -1296,6 +1477,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '도구',
     'color': '혼돈',
+    'rarity': '언커먼',
   },
   {
     'name': '속임수 덱',
@@ -1303,6 +1485,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '혼돈',
+    'rarity': '언커먼',
   },
   {
     'name': '사이렌호',
@@ -1310,6 +1493,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '도구',
     'color': '혼돈',
+    'rarity': '언커먼',
   },
   {
     'name': '행상인',
@@ -1317,6 +1501,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '혼돈',
+    'rarity': '언커먼',
   },
   {
     'name': '보물 창고',
@@ -1324,6 +1509,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '도구',
     'color': '혼돈',
+    'rarity': '언커먼',
   },
   {
     'name': '회오리바람',
@@ -1331,6 +1517,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '혼돈',
+    'rarity': '언커먼',
   },
   {
     'name': '자운 문지기',
@@ -1338,6 +1525,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '혼돈',
+    'rarity': '언커먼',
   },
   {
     'name': '케인, 해방',
@@ -1345,6 +1533,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '혼돈',
+    'rarity': '레어',
   },
   {
     'name': '코그모, 부식',
@@ -1352,6 +1541,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '혼돈',
+    'rarity': '레어',
   },
   {
     'name': '정신 나간 습격자',
@@ -1359,6 +1549,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '혼돈',
+    'rarity': '레어',
   },
   {
     'name': '정신 분쇄자',
@@ -1366,6 +1557,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '혼돈',
+    'rarity': '레어',
   },
   {
     'name': '미스 포츈, 해적단',
@@ -1373,6 +1565,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '혼돈',
+    'rarity': '레어',
   },
   {
     'name': '녹턴, 공포',
@@ -1380,6 +1573,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '혼돈',
+    'rarity': '레어',
   },
   {
     'name': '파괴자 라사',
@@ -1387,6 +1581,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '혼돈',
+    'rarity': '레어',
   },
   {
     'name': '영혼탐식자',
@@ -1394,6 +1589,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '혼돈',
+    'rarity': '레어',
   },
   {
     'name': '티모, 정찰병',
@@ -1401,6 +1597,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '혼돈',
+    'rarity': '레어',
   },
   {
     'name': '해로윙',
@@ -1408,6 +1605,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '혼돈',
+    'rarity': '레어',
   },
   {
     'name': '파도전환자',
@@ -1415,6 +1613,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '혼돈',
+    'rarity': '레어',
   },
   {
     'name': '트위스티드 페이트, 도박꾼',
@@ -1422,6 +1621,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '혼돈',
+    'rarity': '레어',
   },
   {
     'name': '시간선 뒤집기',
@@ -1429,6 +1629,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '혼돈',
+    'rarity': '에픽',
   },
   {
     'name': '징크스, 반항아',
@@ -1436,6 +1637,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '혼돈',
+    'rarity': '에픽',
   },
   {
     'name': '지배',
@@ -1443,6 +1645,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '혼돈',
+    'rarity': '에픽',
   },
   {
     'name': '불화의 문장',
@@ -1450,6 +1653,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '도구',
     'color': '혼돈',
+    'rarity': '에픽',
   },
   {
     'name': '야스오, 바람을 타는 자',
@@ -1457,6 +1661,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '혼돈',
+    'rarity': '에픽',
   },
 
   // ============================================================
@@ -1469,6 +1674,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '질서',
+    'rarity': '커먼',
   },
   {
     'name': '영광의 부름',
@@ -1476,6 +1682,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '질서',
+    'rarity': '커먼',
   },
   {
     'name': '잔인한 후원자',
@@ -1483,6 +1690,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '질서',
+    'rarity': '커먼',
   },
   {
     'name': '약자 도륙',
@@ -1490,6 +1698,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '질서',
+    'rarity': '커먼',
   },
   {
     'name': '대담한 포로',
@@ -1497,6 +1706,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '질서',
+    'rarity': '커먼',
   },
   {
     'name': '충직한 제작자',
@@ -1504,6 +1714,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '질서',
+    'rarity': '커먼',
   },
   {
     'name': '미래의 대장간',
@@ -1511,6 +1722,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '도구',
     'color': '질서',
+    'rarity': '커먼',
   },
   {
     'name': '숨겨진 칼날',
@@ -1518,6 +1730,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '질서',
+    'rarity': '커먼',
   },
   {
     'name': '질서 룬',
@@ -1525,6 +1738,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '룬',
     'color': '질서',
+    'rarity': '커먼',
   },
   {
     'name': '갑판장',
@@ -1532,6 +1746,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '질서',
+    'rarity': '커먼',
   },
   {
     'name': '높이 나는 정찰병',
@@ -1539,6 +1754,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '질서',
+    'rarity': '커먼',
   },
   {
     'name': '영광을 좇는 트리파르 병사',
@@ -1546,6 +1762,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '질서',
+    'rarity': '커먼',
   },
   {
     'name': '선봉대 대장',
@@ -1553,6 +1770,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '질서',
+    'rarity': '커먼',
   },
   {
     'name': '선봉대 병장',
@@ -1560,6 +1778,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '질서',
+    'rarity': '커먼',
   },
   {
     'name': '안면 강타',
@@ -1567,6 +1786,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '질서',
+    'rarity': '언커먼',
   },
   {
     'name': '제국의 법령',
@@ -1574,6 +1794,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '질서',
+    'rarity': '언커먼',
   },
   {
     'name': '녹서스 군악대',
@@ -1581,6 +1802,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '질서',
+    'rarity': '언커먼',
   },
   {
     'name': '봉우리 수호자',
@@ -1588,6 +1810,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '질서',
+    'rarity': '언커먼',
   },
   {
     'name': '인양',
@@ -1595,6 +1818,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '질서',
+    'rarity': '언커먼',
   },
   {
     'name': '솔라리 대장',
@@ -1602,6 +1826,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '질서',
+    'rarity': '언커먼',
   },
   {
     'name': '유령 부인',
@@ -1609,6 +1834,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '질서',
+    'rarity': '언커먼',
   },
   {
     'name': '솔라리의 상징',
@@ -1616,6 +1842,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '도구',
     'color': '질서',
+    'rarity': '언커먼',
   },
   {
     'name': '선봉대 투구',
@@ -1623,6 +1850,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '도구',
     'color': '질서',
+    'rarity': '언커먼',
   },
   {
     'name': '복수',
@@ -1630,6 +1858,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '질서',
+    'rarity': '언커먼',
   },
   {
     'name': '알버스 페로스',
@@ -1637,6 +1866,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '질서',
+    'rarity': '레어',
   },
   {
     'name': '사령관 레드로스',
@@ -1644,6 +1874,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '질서',
+    'rarity': '레어',
   },
   {
     'name': '피오라, 승리자',
@@ -1651,6 +1882,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '질서',
+    'rarity': '레어',
   },
   {
     'name': '웅장한 책략',
@@ -1658,6 +1890,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '질서',
+    'rarity': '레어',
   },
   {
     'name': '길들인 드래곤',
@@ -1665,6 +1898,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '질서',
+    'rarity': '레어',
   },
   {
     'name': '카르마, 정신 집중',
@@ -1672,6 +1906,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '질서',
+    'rarity': '레어',
   },
   {
     'name': '카서스, 영원',
@@ -1679,6 +1914,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '질서',
+    'rarity': '레어',
   },
   {
     'name': '왕의 칙령',
@@ -1686,6 +1922,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '질서',
+    'rarity': '레어',
   },
   {
     'name': '레오나, 결연',
@@ -1693,6 +1930,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '질서',
+    'rarity': '레어',
   },
   {
     'name': '기계 복음',
@@ -1700,6 +1938,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '질서',
+    'rarity': '레어',
   },
   {
     'name': '세트, 두목',
@@ -1707,6 +1946,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '질서',
+    'rarity': '레어',
   },
   {
     'name': '쉔, 킨코우',
@@ -1714,6 +1954,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '질서',
+    'rarity': '레어',
   },
   {
     'name': '미끼 갈고리',
@@ -1721,6 +1962,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '도구',
     'color': '질서',
+    'rarity': '에픽',
   },
   {
     'name': '다리우스, 처형자',
@@ -1728,6 +1970,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '질서',
+    'rarity': '에픽',
   },
   {
     'name': '신성한 심판',
@@ -1735,6 +1978,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '질서',
+    'rarity': '에픽',
   },
   {
     'name': '단합의 문장',
@@ -1742,6 +1986,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '도구',
     'color': '질서',
+    'rarity': '에픽',
   },
   {
     'name': '빅토르, 지도자',
@@ -1749,6 +1994,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '유닛',
     'color': '질서',
+    'rarity': '에픽',
   },
 
   // ============================================================
@@ -1761,6 +2007,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '전설',
     'color': '분노,정신',
+    'rarity': '레어',
   },
   {
     'name': '이케시아 폭우, 카이사',
@@ -1768,6 +2015,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '분노,정신',
+    'rarity': '에픽',
   },
   {
     'name': '무자비한 폭풍',
@@ -1775,6 +2023,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '전설',
     'color': '분노,신체',
+    'rarity': '레어',
   },
   {
     'name': '폭풍을 부르는 자, 볼리베어',
@@ -1782,6 +2031,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '분노,신체',
+    'rarity': '에픽',
   },
   {
     'name': '난폭한 말괄량이',
@@ -1789,6 +2039,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '전설',
     'color': '분노,혼돈',
+    'rarity': '레어',
   },
   {
     'name': '초강력 초토화 로켓!, 징크스',
@@ -1796,6 +2047,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '분노,혼돈',
+    'rarity': '에픽',
   },
   {
     'name': '녹서스의 실력자',
@@ -1803,6 +2055,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '전설',
     'color': '분노,질서',
+    'rarity': '레어',
   },
   {
     'name': '녹서스의 단두대, 다리우스',
@@ -1810,6 +2063,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '분노,질서',
+    'rarity': '에픽',
   },
   {
     'name': '구미호',
@@ -1817,6 +2071,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '전설',
     'color': '평정,정신',
+    'rarity': '레어',
   },
   {
     'name': '여우불, 아리',
@@ -1824,6 +2079,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '평정,정신',
+    'rarity': '에픽',
   },
   {
     'name': '눈먼 수도승',
@@ -1831,6 +2087,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '전설',
     'color': '평정,신체',
+    'rarity': '레어',
   },
   {
     'name': '용의 분노, 리 신',
@@ -1838,6 +2095,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '평정,신체',
+    'rarity': '에픽',
   },
   {
     'name': '용서받지 못한 자',
@@ -1845,6 +2103,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '전설',
     'color': '평정,혼돈',
+    'rarity': '레어',
   },
   {
     'name': '최후의 숨결, 야스오',
@@ -1852,6 +2111,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '평정,혼돈',
+    'rarity': '에픽',
   },
   {
     'name': '여명의 빛',
@@ -1859,6 +2119,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '전설',
     'color': '평정,질서',
+    'rarity': '레어',
   },
   {
     'name': '천공의 검, 레오나',
@@ -1866,6 +2127,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '평정,질서',
+    'rarity': '에픽',
   },
   {
     'name': '날쌘 정찰병',
@@ -1873,6 +2135,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '전설',
     'color': '정신,혼돈',
+    'rarity': '레어',
   },
   {
     'name': '유격 전투, 티모',
@@ -1880,6 +2143,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '정신,혼돈',
+    'rarity': '에픽',
   },
   {
     'name': '아케인의 전령관',
@@ -1887,6 +2151,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '전설',
     'color': '정신,질서',
+    'rarity': '레어',
   },
   {
     'name': '힘의 흡수, 빅토르',
@@ -1894,6 +2159,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '정신,질서',
+    'rarity': '에픽',
   },
   {
     'name': '현상금 사냥꾼',
@@ -1901,6 +2167,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '전설',
     'color': '신체,혼돈',
+    'rarity': '레어',
   },
   {
     'name': '쌍권총 난사, 미스 포츈',
@@ -1908,6 +2175,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '신체,혼돈',
+    'rarity': '에픽',
   },
   {
     'name': '우두머리',
@@ -1915,6 +2183,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '전설',
     'color': '신체,질서',
+    'rarity': '레어',
   },
   {
     'name': '대미 장식, 세트',
@@ -1922,6 +2191,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '주문',
     'color': '신체,질서',
+    'rarity': '에픽',
   },
 
   // ============================================================
@@ -1944,6 +2214,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '전장',
     'color': '무색',
+    'rarity': '언커먼',
   },
   {
     'name': '수행자의 오르막',
@@ -1951,6 +2222,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '전장',
     'color': '무색',
+    'rarity': '언커먼',
   },
   {
     'name': '뒷골목 술집',
@@ -1958,6 +2230,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '전장',
     'color': '무색',
+    'rarity': '언커먼',
   },
   {
     'name': '밴들 나무',
@@ -1965,6 +2238,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '전장',
     'color': '무색',
+    'rarity': '언커먼',
   },
   {
     'name': '요새화 진형',
@@ -1972,6 +2246,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '전장',
     'color': '무색',
+    'rarity': '언커먼',
   },
   {
     'name': '신의 버드나무 숲',
@@ -1979,6 +2254,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '전장',
     'color': '무색',
+    'rarity': '언커먼',
   },
   {
     'name': '신성한 무덤',
@@ -1986,6 +2262,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '전장',
     'color': '무색',
+    'rarity': '언커먼',
   },
   {
     'name': '히라나 수도원',
@@ -1993,6 +2270,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '전장',
     'color': '무색',
+    'rarity': '언커먼',
   },
   {
     'name': '나보리 투기장',
@@ -2000,6 +2278,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '전장',
     'color': '무색',
+    'rarity': '언커먼',
   },
   {
     'name': '힘의 오벨리스크',
@@ -2007,6 +2286,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '전장',
     'color': '무색',
+    'rarity': '언커먼',
   },
   {
     'name': '약탈자의 노',
@@ -2014,6 +2294,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '전장',
     'color': '무색',
+    'rarity': '언커먼',
   },
   {
     'name': '검투사 투기장',
@@ -2021,6 +2302,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '전장',
     'color': '무색',
+    'rarity': '언커먼',
   },
   {
     'name': '폭풍의 인장',
@@ -2028,6 +2310,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '전장',
     'color': '무색',
+    'rarity': '언커먼',
   },
   {
     'name': '별 봉우리',
@@ -2035,6 +2318,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '전장',
     'color': '무색',
+    'rarity': '언커먼',
   },
   {
     'name': '타곤의 봉우리',
@@ -2042,6 +2326,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '전장',
     'color': '무색',
+    'rarity': '언커먼',
   },
   {
     'name': '투기장의 최고봉',
@@ -2049,6 +2334,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '전장',
     'color': '무색',
+    'rarity': '언커먼',
   },
   {
     'name': '촛불 성소',
@@ -2056,6 +2342,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '전장',
     'color': '무색',
+    'rarity': '언커먼',
   },
   {
     'name': '꿈꾸는 나무',
@@ -2063,6 +2350,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '전장',
     'color': '무색',
+    'rarity': '언커먼',
   },
   {
     'name': '대광장',
@@ -2070,6 +2358,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '전장',
     'color': '무색',
+    'rarity': '언커먼',
   },
   {
     'name': '트리파르 주둔지',
@@ -2077,6 +2366,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '전장',
     'color': '무색',
+    'rarity': '언커먼',
   },
   {
     'name': '썩은 아귀 둥지',
@@ -2084,6 +2374,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '전장',
     'color': '무색',
+    'rarity': '언커먼',
   },
   {
     'name': '공허의 문',
@@ -2091,6 +2382,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '전장',
     'color': '무색',
+    'rarity': '언커먼',
   },
   {
     'name': '바람이 부는 언덕',
@@ -2098,6 +2390,7 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '전장',
     'color': '무색',
+    'rarity': '언커먼',
   },
   {
     'name': '자운 땅굴',
@@ -2105,5 +2398,6 @@ const List<Map<String, dynamic>> initialCards = [
     'series': '오리진',
     'type': '전장',
     'color': '무색',
+    'rarity': '언커먼',
   },
 ];

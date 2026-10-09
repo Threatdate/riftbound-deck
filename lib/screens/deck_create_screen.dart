@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import '../database/database_helper.dart';
 
@@ -64,6 +66,7 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
           'series': card['series'],
           'type': card['type'],
           'color': card['color'],
+          'rarity': card['rarity'] ?? '',
           'deckCount': 0,
         };
       }).toList();
@@ -79,9 +82,7 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
         final type = card['type'].toString();
         final color = card['color'].toString();
 
-        if (type == '전설' ||
-            type == '룬' ||
-            color == '무색') {
+        if (type == '전설' || type == '룬' || color == '무색') {
           return sum;
         }
 
@@ -172,8 +173,13 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
     }
 
     final allowedColors = allowedRuneColors;
+    final cardColors = color
+        .split(',')
+        .map((value) => value.trim())
+        .where((value) => value.isNotEmpty)
+        .toList();
 
-    return allowedColors.contains(color);
+    return cardColors.any(allowedColors.contains);
   }
 
   bool isRuneAllowed(Map<String, dynamic> card) {
@@ -198,23 +204,21 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
       final type = card['type'].toString();
       final color = card['color'].toString();
 
-      final matchesSearch =
-          searchText.isEmpty ||
-              name.contains(searchText) ||
-              number.contains(searchText);
+      final matchesSearch = searchText.isEmpty ||
+          name.contains(searchText) ||
+          number.contains(searchText);
 
       final matchesSeries =
-          selectedSeries == '전체' ||
-              series == selectedSeries;
+          selectedSeries == '전체' || series == selectedSeries;
 
       final matchesType =
-          selectedType == '전체' ||
-              type == selectedType;
+          selectedType == '전체' || type == selectedType;
 
-      final matchesColor =
-          selectedColor == '전체' ||
-              (selectedColor == '전장' && color == '무색') ||
-              color.split(',').contains(selectedColor);
+      final matchesColor = selectedColor == '전체' ||
+          (selectedColor == '전장' && color == '무색') ||
+          color.split(',').map((value) => value.trim()).contains(
+            selectedColor,
+          );
 
       return matchesSearch &&
           matchesSeries &&
@@ -227,25 +231,18 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
     switch (color) {
       case '분노':
         return Colors.red;
-
       case '평정':
         return Colors.green;
-
       case '정신':
         return Colors.blue;
-
       case '신체':
         return Colors.orange;
-
       case '혼돈':
         return Colors.purple;
-
       case '질서':
         return Colors.amber;
-
       case '무색':
         return Colors.grey;
-
       default:
         return Colors.grey;
     }
@@ -254,10 +251,65 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
   List<Color> _getColors(String color) {
     return color
         .split(',')
-        .map(
-          (value) => _getColor(value.trim()),
-    )
+        .map((value) => _getColor(value.trim()))
         .toList();
+  }
+
+  // 등급 도형 색상
+  Color _getRarityShapeColor(String rarity) {
+    switch (rarity) {
+      case '커먼':
+        return const Color(0xFF9AA0AA);
+      case '언커먼':
+        return const Color(0xFF64A8FF);
+      case '레어':
+        return const Color(0xFFBB86FC);
+      case '에픽':
+        return const Color(0xFFFFC107);
+      default:
+        return Colors.transparent;
+    }
+  }
+
+  // 등급별 도형
+  Widget _buildRarityShape(String rarity) {
+    final color = _getRarityShapeColor(rarity);
+
+    if (color == Colors.transparent) {
+      return const SizedBox.shrink();
+    }
+
+    // 커먼: 원
+    if (rarity == '커먼') {
+      return Container(
+        width: 11,
+        height: 11,
+        decoration: BoxDecoration(
+          color: color,
+          shape: BoxShape.circle,
+        ),
+      );
+    }
+
+    // 언커먼: 삼각형, 레어: 다이아몬드, 에픽: 오각형
+    final sides = switch (rarity) {
+      '언커먼' => 3,
+      '레어' => 4,
+      '에픽' => 5,
+      _ => 0,
+    };
+
+    if (sides == 0) {
+      return const SizedBox.shrink();
+    }
+
+    return CustomPaint(
+      size: const Size(12, 12),
+      painter: _RarityShapePainter(
+        color: color,
+        sides: sides,
+      ),
+    );
   }
 
   Widget _buildAttributeDots(
@@ -309,15 +361,11 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
       onSelected: onSelected,
       child: Container(
         height: 44,
-        padding: const EdgeInsets.symmetric(
-          horizontal: 12,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 12),
         decoration: BoxDecoration(
           color: panelColor,
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-            color: borderColor,
-          ),
+          border: Border.all(color: borderColor),
         ),
         child: Row(
           children: [
@@ -362,9 +410,7 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
                 ],
                 Text(
                   item,
-                  style: const TextStyle(
-                    color: Colors.white,
-                  ),
+                  style: const TextStyle(color: Colors.white),
                 ),
               ],
             ),
@@ -374,10 +420,7 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
     );
   }
 
-  // ============================================================
   // 필터 초기화
-  // ============================================================
-
   void resetFilters() {
     searchController.clear();
 
@@ -390,11 +433,10 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
   }
 
   Widget _buildResetButton() {
-    final bool isFiltered =
-        selectedSeries != '전체' ||
-            selectedType != '전체' ||
-            selectedColor != '전체' ||
-            searchText.isNotEmpty;
+    final bool isFiltered = selectedSeries != '전체' ||
+        selectedType != '전체' ||
+        selectedColor != '전체' ||
+        searchText.isNotEmpty;
 
     return SizedBox(
       height: 44,
@@ -405,9 +447,7 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
         style: IconButton.styleFrom(
           backgroundColor: panelColor,
           disabledBackgroundColor: panelColor,
-          side: const BorderSide(
-            color: borderColor,
-          ),
+          side: const BorderSide(color: borderColor),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -415,9 +455,7 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
         icon: Icon(
           Icons.refresh,
           size: 19,
-          color: isFiltered
-              ? Colors.white
-              : secondaryTextColor,
+          color: isFiltered ? Colors.white : secondaryTextColor,
         ),
       ),
     );
@@ -449,9 +487,7 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           backgroundColor: Color(0xFF2A2E37),
-          content: Text(
-            '같은 카드는 최대 3장까지 넣을 수 있습니다.',
-          ),
+          content: Text('같은 카드는 최대 3장까지 넣을 수 있습니다.'),
           duration: Duration(seconds: 1),
         ),
       );
@@ -463,9 +499,7 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             backgroundColor: Color(0xFF2A2E37),
-            content: Text(
-              '전설은 1장만 넣을 수 있습니다.',
-            ),
+            content: Text('전설은 1장만 넣을 수 있습니다.'),
             duration: Duration(seconds: 1),
           ),
         );
@@ -484,9 +518,7 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             backgroundColor: Color(0xFF2A2E37),
-            content: Text(
-              '먼저 전설을 선택해주세요.',
-            ),
+            content: Text('먼저 전설을 선택해주세요.'),
             duration: Duration(seconds: 1),
           ),
         );
@@ -511,9 +543,7 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             backgroundColor: Color(0xFF2A2E37),
-            content: Text(
-              '룬은 최대 12장까지 넣을 수 있습니다.',
-            ),
+            content: Text('룬은 최대 12장까지 넣을 수 있습니다.'),
             duration: Duration(seconds: 1),
           ),
         );
@@ -532,9 +562,7 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             backgroundColor: Color(0xFF2A2E37),
-            content: Text(
-              '전장은 최대 3장까지 넣을 수 있습니다.',
-            ),
+            content: Text('전장은 최대 3장까지 넣을 수 있습니다.'),
             duration: Duration(seconds: 1),
           ),
         );
@@ -552,9 +580,7 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           backgroundColor: Color(0xFF2A2E37),
-          content: Text(
-            '메인 덱은 최대 40장까지 넣을 수 있습니다.',
-          ),
+          content: Text('메인 덱은 최대 40장까지 넣을 수 있습니다.'),
           duration: Duration(seconds: 1),
         ),
       );
@@ -595,9 +621,7 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
           content: TextField(
             maxLines: 6,
             autofocus: true,
-            style: const TextStyle(
-              color: Colors.white,
-            ),
+            style: const TextStyle(color: Colors.white),
             onChanged: (value) {
               inputCode = value;
             },
@@ -610,15 +634,11 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
               fillColor: backgroundColor,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: const BorderSide(
-                  color: borderColor,
-                ),
+                borderSide: const BorderSide(color: borderColor),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: const BorderSide(
-                  color: borderColor,
-                ),
+                borderSide: const BorderSide(color: borderColor),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
@@ -635,9 +655,7 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
               },
               child: const Text(
                 '취소',
-                style: TextStyle(
-                  color: secondaryTextColor,
-                ),
+                style: TextStyle(color: secondaryTextColor),
               ),
             ),
             ElevatedButton(
@@ -646,9 +664,7 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
                 foregroundColor: Colors.black,
               ),
               onPressed: () {
-                Navigator.of(dialogContext).pop(
-                  inputCode.trim(),
-                );
+                Navigator.of(dialogContext).pop(inputCode.trim());
               },
               child: const Text('불러오기'),
             ),
@@ -679,21 +695,16 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
     }
 
     String? importedName;
-
     final Map<String, int> importedCards = {};
 
     for (int i = 1; i < parts.length; i++) {
       final part = parts[i].trim();
 
-      if (part.isEmpty) {
-        continue;
-      }
+      if (part.isEmpty) continue;
 
       if (part.startsWith('NAME=')) {
         try {
-          importedName = Uri.decodeComponent(
-            part.substring(5),
-          );
+          importedName = Uri.decodeComponent(part.substring(5));
         } catch (_) {
           importedName = part.substring(5);
         }
@@ -703,21 +714,13 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
 
       final equalIndex = part.indexOf('=');
 
-      if (equalIndex <= 0) {
-        continue;
-      }
+      if (equalIndex <= 0) continue;
 
-      final number =
-      part.substring(0, equalIndex).trim();
-
-      final countText =
-      part.substring(equalIndex + 1).trim();
-
+      final number = part.substring(0, equalIndex).trim();
+      final countText = part.substring(equalIndex + 1).trim();
       final count = int.tryParse(countText);
 
-      if (number.isEmpty ||
-          count == null ||
-          count <= 0) {
+      if (number.isEmpty || count == null || count <= 0) {
         continue;
       }
 
@@ -762,10 +765,8 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
       importedCount++;
     }
 
-    if (importedName != null &&
-        importedName.trim().isNotEmpty) {
-      deckNameController.text =
-          importedName.trim();
+    if (importedName != null && importedName.trim().isNotEmpty) {
+      deckNameController.text = importedName.trim();
     }
 
     if (!mounted) return;
@@ -773,13 +774,10 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
     setState(() {});
 
     String message =
-        '덱을 불러왔습니다.\n'
-        '카드 $importedCount종이 적용되었습니다.';
+        '덱을 불러왔습니다.\n카드 $importedCount종이 적용되었습니다.';
 
     if (notFoundCount > 0) {
-      message +=
-      '\n현재 DB에서 찾을 수 없는 카드 '
-          '$notFoundCount종이 있습니다.';
+      message += '\n현재 DB에서 찾을 수 없는 카드 $notFoundCount종이 있습니다.';
     }
 
     ScaffoldMessenger.of(context).showSnackBar(
@@ -793,8 +791,7 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
   Future<void> saveDeck() async {
     if (isSaving) return;
 
-    final deckName =
-    deckNameController.text.trim();
+    final deckName = deckNameController.text.trim();
 
     if (deckName.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -809,8 +806,7 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            '전설은 정확히 1장이어야 합니다. '
-                '현재 $totalLegendCount장입니다.',
+            '전설은 정확히 1장이어야 합니다. 현재 $totalLegendCount장입니다.',
           ),
         ),
       );
@@ -821,8 +817,7 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            '룬은 정확히 12장이어야 합니다. '
-                '현재 $totalRuneCount장입니다.',
+            '룬은 정확히 12장이어야 합니다. 현재 $totalRuneCount장입니다.',
           ),
         ),
       );
@@ -833,8 +828,7 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            '전장은 정확히 3장이어야 합니다. '
-                '현재 $totalBattlefieldCount장입니다.',
+            '전장은 정확히 3장이어야 합니다. 현재 $totalBattlefieldCount장입니다.',
           ),
         ),
       );
@@ -845,8 +839,7 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            '메인 덱은 정확히 40장이어야 합니다. '
-                '현재 $totalDeckCount장입니다.',
+            '메인 덱은 정확히 40장이어야 합니다. 현재 $totalDeckCount장입니다.',
           ),
         ),
       );
@@ -870,9 +863,7 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
     if (hasOverLimit) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text(
-            '같은 카드는 최대 3장까지 넣을 수 있습니다.',
-          ),
+          content: Text('같은 카드는 최대 3장까지 넣을 수 있습니다.'),
         ),
       );
       return;
@@ -889,9 +880,7 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
     if (invalidRune) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text(
-            '전설의 속성에 맞지 않는 룬이 포함되어 있습니다.',
-          ),
+          content: Text('전설의 속성에 맞지 않는 룬이 포함되어 있습니다.'),
         ),
       );
       return;
@@ -901,9 +890,7 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
       final type = card['type'].toString();
       final color = card['color'].toString();
 
-      if (type == '전설' ||
-          type == '룬' ||
-          color == '무색') {
+      if (type == '전설' || type == '룬' || color == '무색') {
         return false;
       }
 
@@ -913,9 +900,7 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
     if (invalidNormalCard) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text(
-            '전설의 속성에 맞지 않는 일반 카드가 포함되어 있습니다.',
-          ),
+          content: Text('전설의 속성에 맞지 않는 일반 카드가 포함되어 있습니다.'),
         ),
       );
       return;
@@ -962,9 +947,7 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(
-            '덱 저장 중 오류가 발생했습니다: $e',
-          ),
+          content: Text('덱 저장 중 오류가 발생했습니다: $e'),
         ),
       );
     } finally {
@@ -982,8 +965,7 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
     required int max,
   }) {
     final isComplete = current == max;
-    final progress =
-    (current / max).clamp(0.0, 1.0);
+    final progress = (current / max).clamp(0.0, 1.0);
 
     return Expanded(
       child: Column(
@@ -1000,29 +982,22 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
           Text(
             '$current / $max',
             style: TextStyle(
-              color: isComplete
-                  ? Colors.greenAccent
-                  : Colors.white,
+              color: isComplete ? Colors.greenAccent : Colors.white,
               fontSize: 17,
               fontWeight: FontWeight.bold,
             ),
           ),
           const SizedBox(height: 7),
           Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 8),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(4),
               child: LinearProgressIndicator(
                 value: progress,
                 minHeight: 4,
                 backgroundColor: const Color(0xFF303641),
-                valueColor:
-                AlwaysStoppedAnimation<Color>(
-                  isComplete
-                      ? Colors.greenAccent
-                      : Colors.white70,
+                valueColor: AlwaysStoppedAnimation<Color>(
+                  isComplete ? Colors.greenAccent : Colors.white70,
                 ),
               ),
             ),
@@ -1034,19 +1009,12 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
 
   Widget _buildStatusPanel() {
     return Container(
-      margin: const EdgeInsets.fromLTRB(
-        16,
-        0,
-        16,
-        12,
-      ),
+      margin: const EdgeInsets.fromLTRB(16, 0, 16, 12),
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: panelColor,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: borderColor,
-        ),
+        border: Border.all(color: borderColor),
       ),
       child: Column(
         children: [
@@ -1118,34 +1086,25 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
                     ),
                   ),
                   const SizedBox(width: 12),
-                  ...allowedRuneColors.map(
-                        (color) {
-                      return Padding(
-                        padding:
-                        const EdgeInsets.only(
-                          right: 10,
-                        ),
-                        child: Row(
-                          mainAxisSize:
-                          MainAxisSize.min,
-                          children: [
-                            _buildAttributeDots(
-                              color,
-                              size: 9,
+                  ...allowedRuneColors.map((color) {
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          _buildAttributeDots(color, size: 9),
+                          const SizedBox(width: 5),
+                          Text(
+                            color,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
                             ),
-                            const SizedBox(width: 5),
-                            Text(
-                              color,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
+                          ),
+                        ],
+                      ),
+                    );
+                  }),
                 ],
               ),
             ),
@@ -1155,9 +1114,7 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
     );
   }
 
-  Widget _buildCardItem(
-      Map<String, dynamic> card,
-      ) {
+  Widget _buildCardItem(Map<String, dynamic> card) {
     final deckCount = card['deckCount'] as int;
     final type = card['type'].toString();
     final cardColor = card['color'].toString();
@@ -1166,21 +1123,18 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
     final isLegend = type == '전설';
     final isBattlefield = cardColor == '무색';
 
-    final runeAllowed =
-        !isRune || isRuneAllowed(card);
+    final runeAllowed = !isRune || isRuneAllowed(card);
 
-    final normalCardAllowed =
-        type == '전설' ||
-            type == '룬' ||
-            cardColor == '무색' ||
-            isCardColorAllowed(card);
+    final normalCardAllowed = type == '전설' ||
+        type == '룬' ||
+        cardColor == '무색' ||
+        isCardColorAllowed(card);
 
-    final isDisabled =
-        (isRune && !runeAllowed) ||
-            (!isRune &&
-                !isLegend &&
-                !isBattlefield &&
-                !normalCardAllowed);
+    final isDisabled = (isRune && !runeAllowed) ||
+        (!isRune &&
+            !isLegend &&
+            !isBattlefield &&
+            !normalCardAllowed);
 
     String? restrictionText;
 
@@ -1194,23 +1148,13 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
     }
 
     return Container(
-      margin: const EdgeInsets.fromLTRB(
-        16,
-        0,
-        16,
-        8,
-      ),
-      padding: const EdgeInsets.symmetric(
-        horizontal: 12,
-        vertical: 10,
-      ),
+      margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       decoration: BoxDecoration(
         color: panelColor,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(
-          color: deckCount > 0
-              ? Colors.white24
-              : borderColor,
+          color: deckCount > 0 ? Colors.white24 : borderColor,
         ),
       ),
       child: Row(
@@ -1230,25 +1174,28 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
           const SizedBox(width: 12),
           Expanded(
             child: Column(
-              crossAxisAlignment:
-              CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
-                    _buildAttributeDots(
-                      cardColor,
-                      size: 9,
-                    ),
+                    _buildAttributeDots(cardColor, size: 9),
                     const SizedBox(width: 8),
+
+                    // 등급 도형
+                    _buildRarityShape(
+                      (card['rarity'] ?? '').toString(),
+                    ),
+
+                    if ((card['rarity'] ?? '').toString().isNotEmpty)
+                      const SizedBox(width: 6),
+
                     Expanded(
                       child: Text(
                         card['name'].toString(),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                          color: isDisabled
-                              ? Colors.white38
-                              : Colors.white,
+                          color: isDisabled ? Colors.white38 : Colors.white,
                           fontSize: 15,
                           fontWeight: FontWeight.w600,
                         ),
@@ -1289,16 +1236,13 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
                     ),
                     const SizedBox(width: 7),
                     Container(
-                      padding:
-                      const EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                         horizontal: 6,
                         vertical: 2,
                       ),
                       decoration: BoxDecoration(
-                        color:
-                        Colors.white.withOpacity(0.06),
-                        borderRadius:
-                        BorderRadius.circular(5),
+                        color: Colors.white.withOpacity(0.06),
+                        borderRadius: BorderRadius.circular(5),
                       ),
                       child: Text(
                         isLegend
@@ -1337,9 +1281,7 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
             decoration: BoxDecoration(
               color: backgroundColor,
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: borderColor,
-              ),
+              border: Border.all(color: borderColor),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -1349,13 +1291,8 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
                   height: 38,
                   child: IconButton(
                     padding: EdgeInsets.zero,
-                    icon: const Icon(
-                      Icons.remove,
-                      size: 17,
-                    ),
-                    color: deckCount > 0
-                        ? Colors.white
-                        : Colors.white24,
+                    icon: const Icon(Icons.remove, size: 17),
+                    color: deckCount > 0 ? Colors.white : Colors.white24,
                     onPressed: deckCount > 0
                         ? () {
                       _removeCard(card);
@@ -1382,13 +1319,8 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
                   height: 38,
                   child: IconButton(
                     padding: EdgeInsets.zero,
-                    icon: const Icon(
-                      Icons.add,
-                      size: 17,
-                    ),
-                    color: isDisabled
-                        ? Colors.white24
-                        : Colors.white,
+                    icon: const Icon(Icons.add, size: 17),
+                    color: isDisabled ? Colors.white24 : Colors.white,
                     onPressed: isDisabled
                         ? null
                         : () {
@@ -1430,12 +1362,7 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
           : Column(
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(
-              16,
-              4,
-              16,
-              14,
-            ),
+            padding: const EdgeInsets.fromLTRB(16, 4, 16, 14),
             child: Column(
               children: [
                 TextField(
@@ -1456,28 +1383,20 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
                     filled: true,
                     fillColor: panelColor,
                     border: OutlineInputBorder(
-                      borderRadius:
-                      BorderRadius.circular(12),
-                      borderSide:
-                      const BorderSide(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(
                         color: borderColor,
                       ),
                     ),
-                    enabledBorder:
-                    OutlineInputBorder(
-                      borderRadius:
-                      BorderRadius.circular(12),
-                      borderSide:
-                      const BorderSide(
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(
                         color: borderColor,
                       ),
                     ),
-                    focusedBorder:
-                    OutlineInputBorder(
-                      borderRadius:
-                      BorderRadius.circular(12),
-                      borderSide:
-                      const BorderSide(
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(
                         color: Colors.white38,
                       ),
                     ),
@@ -1491,8 +1410,7 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
                     fontSize: 14,
                   ),
                   decoration: InputDecoration(
-                    hintText:
-                    '카드 이름 또는 번호 검색',
+                    hintText: '카드 이름 또는 번호 검색',
                     hintStyle: const TextStyle(
                       color: secondaryTextColor,
                     ),
@@ -1500,22 +1418,18 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
                       Icons.search,
                       color: secondaryTextColor,
                     ),
-                    suffixIcon:
-                    searchText.isNotEmpty
+                    suffixIcon: searchText.isNotEmpty
                         ? IconButton(
                       onPressed: () {
-                        searchController
-                            .clear();
+                        searchController.clear();
 
                         setState(() {
-                          searchText =
-                          '';
+                          searchText = '';
                         });
                       },
                       icon: const Icon(
                         Icons.clear,
-                        color:
-                        secondaryTextColor,
+                        color: secondaryTextColor,
                         size: 19,
                       ),
                     )
@@ -1523,28 +1437,20 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
                     filled: true,
                     fillColor: panelColor,
                     border: OutlineInputBorder(
-                      borderRadius:
-                      BorderRadius.circular(12),
-                      borderSide:
-                      const BorderSide(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(
                         color: borderColor,
                       ),
                     ),
-                    enabledBorder:
-                    OutlineInputBorder(
-                      borderRadius:
-                      BorderRadius.circular(12),
-                      borderSide:
-                      const BorderSide(
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(
                         color: borderColor,
                       ),
                     ),
-                    focusedBorder:
-                    OutlineInputBorder(
-                      borderRadius:
-                      BorderRadius.circular(12),
-                      borderSide:
-                      const BorderSide(
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(
                         color: Colors.white38,
                       ),
                     ),
@@ -1561,10 +1467,7 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
                     Expanded(
                       child: _buildDropdown(
                         value: selectedSeries,
-                        items: const [
-                          '전체',
-                          '오리진',
-                        ],
+                        items: const ['전체', '오리진'],
                         onSelected: (value) {
                           setState(() {
                             selectedSeries = value;
@@ -1620,16 +1523,9 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
               ],
             ),
           ),
-
           _buildStatusPanel(),
-
           Padding(
-            padding: const EdgeInsets.fromLTRB(
-              16,
-              0,
-              16,
-              10,
-            ),
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 10),
             child: Row(
               children: [
                 Text(
@@ -1642,26 +1538,17 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
                 ),
                 const Spacer(),
                 OutlinedButton.icon(
-                  onPressed:
-                  isSaving
-                      ? null
-                      : importDeckCode,
-                  style:
-                  OutlinedButton.styleFrom(
+                  onPressed: isSaving ? null : importDeckCode,
+                  style: OutlinedButton.styleFrom(
                     foregroundColor: Colors.white,
-                    side: const BorderSide(
-                      color: borderColor,
-                    ),
+                    side: const BorderSide(color: borderColor),
                     backgroundColor: panelColor,
-                    padding:
-                    const EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                       horizontal: 12,
                       vertical: 8,
                     ),
-                    shape:
-                    RoundedRectangleBorder(
-                      borderRadius:
-                      BorderRadius.circular(9),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(9),
                     ),
                   ),
                   icon: const Icon(
@@ -1670,36 +1557,28 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
                   ),
                   label: const Text(
                     '불러오기',
-                    style: TextStyle(
-                      fontSize: 12,
-                    ),
+                    style: TextStyle(fontSize: 12),
                   ),
                 ),
                 const SizedBox(width: 8),
                 ElevatedButton.icon(
-                  onPressed:
-                  isSaving ? null : saveDeck,
-                  style:
-                  ElevatedButton.styleFrom(
+                  onPressed: isSaving ? null : saveDeck,
+                  style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
                     foregroundColor: Colors.black,
-                    padding:
-                    const EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                       horizontal: 13,
                       vertical: 9,
                     ),
-                    shape:
-                    RoundedRectangleBorder(
-                      borderRadius:
-                      BorderRadius.circular(9),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(9),
                     ),
                   ),
                   icon: isSaving
                       ? const SizedBox(
                     width: 14,
                     height: 14,
-                    child:
-                    CircularProgressIndicator(
+                    child: CircularProgressIndicator(
                       strokeWidth: 2,
                       color: Colors.black,
                     ),
@@ -1719,18 +1598,15 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
               ],
             ),
           ),
-
           Expanded(
             child: filteredCards.isEmpty
                 ? const Center(
               child: Column(
-                mainAxisSize:
-                MainAxisSize.min,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(
                     Icons.search_off_rounded,
-                    color:
-                    secondaryTextColor,
+                    color: secondaryTextColor,
                     size: 42,
                   ),
                   SizedBox(height: 12),
@@ -1739,16 +1615,14 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 14,
-                      fontWeight:
-                      FontWeight.w600,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                   SizedBox(height: 5),
                   Text(
                     '검색어나 필터 조건을 변경해보세요.',
                     style: TextStyle(
-                      color:
-                      secondaryTextColor,
+                      color: secondaryTextColor,
                       fontSize: 12,
                     ),
                   ),
@@ -1756,22 +1630,65 @@ class _DeckCreateScreenState extends State<DeckCreateScreen> {
               ),
             )
                 : ListView.builder(
-              padding:
-              const EdgeInsets.only(
-                bottom: 20,
-              ),
-              itemCount:
-              filteredCards.length,
-              itemBuilder:
-                  (context, index) {
-                return _buildCardItem(
-                  filteredCards[index],
-                );
+              padding: const EdgeInsets.only(bottom: 20),
+              itemCount: filteredCards.length,
+              itemBuilder: (context, index) {
+                return _buildCardItem(filteredCards[index]);
               },
             ),
           ),
         ],
       ),
     );
+  }
+}
+
+// 등급 도형을 그리는 CustomPainter
+class _RarityShapePainter extends CustomPainter {
+  final Color color;
+  final int sides;
+
+  const _RarityShapePainter({
+    required this.color,
+    required this.sides,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = color
+      ..style = PaintingStyle.fill
+      ..isAntiAlias = true;
+
+    final center = Offset(
+      size.width / 2,
+      size.height / 2,
+    );
+
+    final radius = size.shortestSide / 2;
+    final path = Path();
+
+    for (int i = 0; i < sides; i++) {
+      final angle = -pi / 2 + (2 * pi * i / sides);
+
+      final point = Offset(
+        center.dx + radius * cos(angle),
+        center.dy + radius * sin(angle),
+      );
+
+      if (i == 0) {
+        path.moveTo(point.dx, point.dy);
+      } else {
+        path.lineTo(point.dx, point.dy);
+      }
+    }
+
+    path.close();
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant _RarityShapePainter oldDelegate) {
+    return oldDelegate.color != color || oldDelegate.sides != sides;
   }
 }

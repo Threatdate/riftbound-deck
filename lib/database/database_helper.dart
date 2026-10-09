@@ -25,7 +25,7 @@ class DatabaseHelper {
 
     return await openDatabase(
       path,
-      version: 6,
+      version: 9,
       onCreate: _createDB,
       onUpgrade: _onUpgrade,
     );
@@ -43,6 +43,7 @@ class DatabaseHelper {
         series TEXT NOT NULL,
         type TEXT NOT NULL,
         color TEXT NOT NULL,
+        rarity TEXT NOT NULL DEFAULT '',
         owned_count INTEGER NOT NULL DEFAULT 0
       )
     ''');
@@ -98,6 +99,31 @@ class DatabaseHelper {
         whereArgs: ['001', '002', '003'],
       );
     }
+
+    if (oldVersion < 7) {
+      await db.execute('''
+        ALTER TABLE cards
+        ADD COLUMN rarity TEXT NOT NULL DEFAULT ''
+      ''');
+
+      await _insertInitialCards(db);
+    }
+
+    if (oldVersion < 8) {
+      await _insertInitialCards(db);
+    }
+
+    if (oldVersion < 9) {
+      // 기존 데이터베이스에 남아 있는 미지정 등급 제거
+      await db.update(
+        'cards',
+        {'rarity': ''},
+        where: "rarity = '미지정'",
+      );
+
+      // 카드 데이터 파일의 등급 정보를 기존 카드에 반영
+      await _insertInitialCards(db);
+    }
   }
 
   Future<void> _insertInitialCards(Database db) async {
@@ -110,10 +136,22 @@ class DatabaseHelper {
           'series': card['series'],
           'type': card['type'],
           'color': card['color'],
+          'rarity': card['rarity'] ?? '',
           'owned_count': 0,
         },
         conflictAlgorithm: ConflictAlgorithm.ignore,
       );
+
+      // 기존 카드의 보유 수량은 유지하고,
+      // 카드 데이터에 등급이 있을 때만 등급을 갱신한다.
+      if (card['rarity'] != null) {
+        await db.update(
+          'cards',
+          {'rarity': card['rarity']},
+          where: 'number = ?',
+          whereArgs: [card['number']],
+        );
+      }
     }
   }
 }
